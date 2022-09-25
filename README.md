@@ -6,7 +6,7 @@
     
 CHANGELOG:     
 ---    
-https://github.com/ziyuefan/EventAlertMod/blob/SL-2021.04.14/changelog.txt
+https://github.com/ziyuefan/EventAlertModAll/blob/main/changelog.txt
 
 ![EAM Main](https://truth.bahamut.com.tw/s01/202008/1982fcd16ac80aaddfeb299f57a71e94.JPG)
 
