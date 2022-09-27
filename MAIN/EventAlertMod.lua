@@ -2192,7 +2192,7 @@ function EventAlert_PositionFrames()
 					tinsert(tmp,gsiName)
 					if gsiValue and type(gsiValue)=="table" then						
 						for i,v in ipairs(gsiValue) do
-							if v > ShowAuraValueWhenOver then	
+							if v and (v > ShowAuraValueWhenOver) then	
 								if v > 10000 then v = format("%.1f萬",v / 10000) end
 								-- tmp = tmp.."\n"..v 
 								tinsert(tmp,"\n")
