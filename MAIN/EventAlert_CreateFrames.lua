@@ -222,7 +222,10 @@ function CreateFrames_CreateSpellFrame(index, typeIndex)
 	local icon = GetSpellTexture(spellId)
 	
 	if typeIndex == 1 then
-		if EA_SPELLINFO_SELF[spellId] == nil then EA_SPELLINFO_SELF[spellId] = {name,  icon, count, duration, expirationTime, unitCaster, isDebuff} end
+		if EA_SPELLINFO_SELF[spellId] == nil then 
+			EA_SPELLINFO_SELF[spellId] = {name,  icon, count, duration, expirationTime, unitCaster, isDebuff} 
+		end
+		
 		EA_SPELLINFO_SELF[spellId].name = name
 		
 		if (spellId == 48517) then          -- Druid / Eclipse (Solar): replace the Icon as Wrath (Rank 1)
@@ -234,12 +237,16 @@ function CreateFrames_CreateSpellFrame(index, typeIndex)
 		end
 		EA_SPELLINFO_SELF[spellId].icon = icon
 	elseif typeIndex == 2 then
-		if EA_SPELLINFO_TARGET[spellId] == nil then EA_SPELLINFO_TARGET[spellId] = {name,  icon, count, duration, expirationTime, unitCaster, isDebuff} end
-		EA_SPELLINFO_TARGET[spellId].name = name
+		if EA_SPELLINFO_TARGET[spellId] == nil then 
+			EA_SPELLINFO_TARGET[spellId] = {name,  icon, count, duration, expirationTime, unitCaster, isDebuff} 
+		end
 		
+		EA_SPELLINFO_TARGET[spellId].name = name		
 		EA_SPELLINFO_TARGET[spellId].icon = icon
 	elseif typeIndex == 3 then
-		if EA_SPELLINFO_SCD[spellId] == nil then EA_SPELLINFO_SCD[spellId] = {name, icon} end
+		if EA_SPELLINFO_SCD[spellId] == nil then 
+			EA_SPELLINFO_SCD[spellId] = {name, icon} 
+		end
 		
 		EA_SPELLINFO_SCD[spellId].name = name		
 		EA_SPELLINFO_SCD[spellId].icon = icon
@@ -346,16 +353,18 @@ if EA_flagAllHidden == true then
 	elseif index == EA_SpecPower.Runes.frameindex[0] then
 		-- 死亡騎士符文的圖案
 		--Lib_ZYF:SetBackdrop(eaf,{bgFile=iconTextures[GetSpecialization()]})
-		--eaf.texture:SetTexture(runeTextures[GetSpecialization()])	
+		--eaf.texture:SetTexture(runeTextures[GetSpecialization()])
 		
-		eaf.texture:SetTexture(1630812)			
 		local coord
+		eaf.texture:SetTexture(1630812)			
 		if GetSpecialization then
 			coord = runeSetTexCoord[GetSpecialization()]								
 		else
 			coord = runeSetTexCoord[GetShapeshiftForm()]			
 		end		
-		eaf.texture:SetTexCoord(coord.minX, coord.maxX, coord.minY, coord.maxY)	
+		if coord then
+			eaf.texture:SetTexCoord(coord.minX, coord.maxX, coord.minY, coord.maxY)	
+		end 
 		
 	elseif index == EA_SpecPower.SoulShards.frameindex[1] then
 		-- 術士靈魂碎片的圖案
@@ -1484,7 +1493,8 @@ function CreateFrames_CreateMinimapOptionFrame()
 								t = t..EA_XCMD_CMDHELP["TITLE"].."\n"
 								t = t..EA_XCMD_CMDHELP["OPT"].."\n"
 								t = t..EA_XCMD_CMDHELP["HELP"].."\n"
-							
+								
+								local k,v
 								for k,v in pairs(EA_XCMD_CMDHELP) do
 									if v[1] then t = t..v[1].."\n"..v[2].."\n" end									
 								end

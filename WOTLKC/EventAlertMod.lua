@@ -459,28 +459,63 @@ function EventAlert_CreateSpellItemCache(flagRenew)
 			return
 		end
 	end
-	print("Create new EA_Config.EA_SPELL_ITEM : START")
+	
+	-- print("Create new EA_Config.EA_SPELL_ITEM : START")
+	
 	local DoesItemExistByID = C_Item.DoesItemExistByID
 	local GetItemSpell = GetItemSpell
-	local max_itemid = 10^6
+	local max_itemid = 10^6 - 1
 	local tempArray = {}
 	
+	-- WOW_PROJECT_ID		
+	-- 1	WOW_PROJECT_MAINLINE	Retail	BNet.lua
+	-- 2	WOW_PROJECT_CLASSIC	Classic Era	Constants.lua
+	-- 5	WOW_PROJECT_BURNING_CRUSADE_CLASSIC	Burning Crusade Classic	Constants.lua
+	-- 11	WOW_PROJECT_WRATH_CLASSIC	Wrath Classic	Constants.lua
+
+	
+	-- Value	Enum								Description
+	-- 			LE_EXPANSION_LEVEL_CURRENT	
+	-- 0		LE_EXPANSION_CLASSIC				Classic Era
+	-- 1		LE_EXPANSION_BURNING_CRUSADE		The Burning Crusade
+	-- 2		LE_EXPANSION_WRATH_OF_THE_LICH_KING	Wrath of the Lich King
+	-- 3		LE_EXPANSION_CATACLYSM				Cataclysm
+	-- 4		LE_EXPANSION_MISTS_OF_PANDARIA		Mists of Pandaria
+	-- 5		LE_EXPANSION_WARLORDS_OF_DRAENOR	Warlords of Draenor
+	-- 6		LE_EXPANSION_LEGION					Legion
+	-- 7		LE_EXPANSION_BATTLE_FOR_AZEROTH		Battle for Azeroth
+	-- 8		LE_EXPANSION_SHADOWLANDS			Shadowlands
+	-- 9		LE_EXPANSION_10_0					Dragonflight
+	-- 10		LE_EXPANSION_11_0	
+	if LE_EXPANSION_LEVEL_CURRENT <= LE_EXPANSION_WRATH_OF_THE_LICH_KING then 
+		max_itemid = 10^5 - 1		
+	end
+		
 	local i
 	for i = 1, max_itemid do 
 		tinsert(tempArray, nil)
 	end
 	
-	local _,s
+	local function tmpGetItemSpell(itemID)
+		local _,s
+		_,s = GetItemSpell(itemID)
+		if s then 
+			tempArray[s] = itemID
+		end
+	end
+	
+	local count=0
 	for i = 1, max_itemid do
 		if DoesItemExistByID(i) then 
-			_,s = GetItemSpell(i)
-			if s then 
-				tempArray[s] = i 
-			end
+			Lib_ZYF:SetOnUpdateOnce(tonumber(count*1), tmpGetItemSpell, tonumber(i) )
+			count = count + 1
+			-- if i >= (max_itemid/100) then
+				-- print("Done Create Item Spell Cache :" .. i / (max.itemid/100) .."%")
+			-- end
 		end			
 	end
 	EA_Config.EA_SPELL_ITEM = tempArray	
-	print("Create new EA_Config.EA_SPELL_ITEM : END")
+	-- print("Create new EA_Config.EA_SPELL_ITEM : END")
 end
 --[[------------------------------------------------------------------
 --------------------------------------------------------------------]]
@@ -2745,16 +2780,17 @@ function EventAlert_SlashHandler(msg)
 		-- end
 	
 	elseif (cmdtype == "play") then
-		local eaf = EventAlert_ExecutionFrame
+		local eaf = _G["EventAlert_ExecutionFrame"]
+		local eaexf = addon.EAEXF
 		eaf:SetAlpha(1)
 		eaf:Show()
 		eaf:SetAlpha(0.8)
 		eaf:Show() 
 	 
-		EAEXF.FrameCount = 0
-		EAEXF.Prefraction = 0	 
-		EAEXF:AnimateOut(eaf)
-		EAEXF.AlreadyAlert = true 	
+		eaexf.FrameCount = 0
+		eaexf.Prefraction = 0	 
+		eaexf:AnimateOut(eaf)
+		eaexf.AlreadyAlert = true 	
 	elseif (cmdtype == "createspellitemcache") then
 	
 		EventAlert_CreateSpellItemCache(true)
@@ -3432,9 +3468,11 @@ function EventAlert_UpdateSinglePower(iPowerType)
 					else
 						coord = runeSetTexCoord[GetShapeshiftForm()]												
 					end
-					eaf.texture:SetTexCoord(coord.minX, coord.maxX, coord.minY, coord.maxY)	
+					if coord then
+						eaf.texture:SetTexCoord(coord.minX, coord.maxX, coord.minY, coord.maxY)	
 					
-					eaf:SetPoint(EA_Position.Anchor, prevFrame, EA_Position.Anchor, -2 * xOffset, -2 * yOffset)																							
+						eaf:SetPoint(EA_Position.Anchor, prevFrame, EA_Position.Anchor, -2 * xOffset, -2 * yOffset)	
+					end
 				end	
 				
 				
@@ -3500,16 +3538,16 @@ function EventAlert_UpdateSinglePower(iPowerType)
 					--若為戰士
 					if (playerClass == EA_CLASS_WARRIOR) then						
 						--若專精為狂怒表示有暴怒技能,80需求值高亮
-						if (GetSpecialization() == 2) then														
+						if GetSpecialization and (GetSpecialization() == 2) then														
 							FrameGlowShowOrHide(eaf, (iUnitPower >= 80 ))							
 						end
 						--若為武器專精則以斬殺最高需求值40高亮
-						if (GetSpecialization() == 1) then
+						if GetSpecialization and  (GetSpecialization() == 1) then
 							--FrameGlowShowOrHide(eaf, (iUnitPower >= UnitPowerMax(unit, Enum.PowerType.Rage)))
 							FrameGlowShowOrHide(eaf, (iUnitPower >= 40))
 						end
 						--若為防護專精則以無視苦痛需求值40高亮
-						if (GetSpecialization() == 3) then
+						if GetSpecialization and  (GetSpecialization() == 3) then
 							--FrameGlowShowOrHide(eaf, (iUnitPower >=UnitPowerMax(unit, Enum.PowerType.Rage)))					
 							FrameGlowShowOrHide(eaf, (iUnitPower >= 40 ))					
 						end						
@@ -4194,7 +4232,7 @@ function EventAlert_GroupFrameCheck_OnEvent(self, event, ...)
 			--5.1:GetActiveTalentGroup() -> GetActiveSpecGroup()
 			--iActiveTalentGroup = GetActiveSpecGroup()
 			--7.0 GetActiveSpecGroup() -> GetSpecialization()
-			iActiveTalentGroup = GetSpecialization()
+			iActiveTalentGroup =  GetSpecialization and GetSpecialization()
 			if (iActiveTalentGroup ~= self.GC.ActiveTalentGroup) then
 				fShowResult = false
 			end

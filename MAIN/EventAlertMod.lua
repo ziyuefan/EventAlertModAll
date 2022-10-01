@@ -2123,18 +2123,17 @@ function EventAlert_PositionFrames()
 		
 		EA_CurrentBuffs = EAFun_SortCurrBuffs(1, EA_CurrentBuffs)	
 		
+		--for speedup
 		local eaf
 		local spellID
-		local gsiName
-		local gsiValue
-		local gsiIcon
-		local gsiIsDebuff
-		local tmp
+		local gsiName,gsiValue,gsiIcon,gsiIsDebuff		
+		local tmp		
 		local k,s,i,v
-		local EA_SPELLINFO_SELF_SPELLID 
+		local EA_SPELLINFO_SELF_SPELLID
+		
 		for k,s in ipairs(EA_CurrentBuffs) do
 			eaf = _G["EAFrame_"..s]
-			spellID = tonumber(s)
+			spellID = tonumber(s)	
 			EA_SPELLINFO_SELF_SPELLID = EA_SPELLINFO_SELF[spellID]
 			gsiName 	= EA_SPELLINFO_SELF_SPELLID.name
 			gsiValue 	= EA_SPELLINFO_SELF_SPELLID.value 
@@ -2188,12 +2187,14 @@ function EventAlert_PositionFrames()
 				--if gsiIsDebuff then eaf.texture:SetColorTexture(1.0,EA_Position.RedDebuff,EA_Position.RedDebuff) end
 				if gsiIsDebuff then eaf.texture:SetVertexColor(1.0,EA_Position.RedDebuff,EA_Position.RedDebuff) end
 				if (EA_Config.ShowName == true) then
-					local tmp = {}
+					
+					tmp={}
 					tinsert(tmp,gsiName)
-					if gsiValue and type(gsiValue)=="table" then						
-						for i,v in ipairs(gsiValue) do
-							if v and (v > ShowAuraValueWhenOver) then	
-								if v > 10000 then v = format("%.1f萬",v / 10000) end
+					if gsiValue and type(gsiValue)=="table" then
+						for i, v in pairs(gsiValue) do
+							v = tonumber(v)		--avoid true/false boolean value
+							if v and (v > ShowAuraValueWhenOver) then 
+								if v > 10000 then v = format("%.1f萬",v/10000) end
 								-- tmp = tmp.."\n"..v 
 								tinsert(tmp,"\n")
 								tinsert(tmp,v)
@@ -2204,6 +2205,8 @@ function EventAlert_PositionFrames()
 					--if gsiValue2 and (gsiValue2 > 0) then  tmp=tmp.."\n"..gsiValue2 end
 					--if gsiValue3 and (gsiValue3 > 0) then  tmp=tmp.."\n"..gsiValue3 end
 					eaf.spellName:SetText(tconcat(tmp))
+				
+					
 					SfontName, SfontSize = eaf.spellName:GetFont()
 					eaf.spellName:SetFont(SfontName, EA_Config.SNameFontSize)
 				else
@@ -2236,6 +2239,9 @@ function EventAlert_TarPositionFrames()
 	end
 	
 	local tonumber = tonumber
+	local type = type
+	local ipairs = ipairs
+	local format = format
 	
 	if (EA_Config.ShowFrame == true) then
 		EA_Main_Frame:ClearAllPoints()
@@ -2250,17 +2256,23 @@ function EventAlert_TarPositionFrames()
 				
 		local IconSize = EA_Config.IconSize
 		local ShowAuraValueWhenOver = EA_Config.ShowAuraValueWhenOver
-		local k,v 
+		
+		--for speedup
+		local s,i,k,v 
+		local eaf
+		local spellID
+		local tmp		
+		local EA_SPELLINFO_TARGET_SPELLID
+		local gsiName,gsiIcon,gsiValue,gsiIsDebuff
+		
 		for k,v in ipairs(EA_TarCurrentBuffs) do
-			local eaf = _G["EATarFrame_"..v]
-			local spellID = tonumber(v)
-			local gsiName = EA_SPELLINFO_TARGET[spellID].name
-			local gsiIcon = EA_SPELLINFO_TARGET[spellID].icon
-			local gsiValue = EA_SPELLINFO_TARGET[spellID].value
-			--local gsiValue1 = EA_SPELLINFO_TARGET[spellID].value1
-			--local gsiValue2 = EA_SPELLINFO_TARGET[spellID].value2
-			--local gsiValue3 = EA_SPELLINFO_TARGET[spellID].value3
-			local gsiIsDebuff = EA_SPELLINFO_TARGET[spellID].isDebuff
+			eaf = _G["EATarFrame_"..v]
+			spellID = tonumber(v)
+			EA_SPELLINFO_TARGET_SPELLID = EA_SPELLINFO_TARGET[spellID]
+			gsiName = EA_SPELLINFO_TARGET_SPELLID.name
+			gsiIcon = EA_SPELLINFO_TARGET_SPELLID.icon
+			gsiValue = EA_SPELLINFO_TARGET_SPELLID.value
+			gsiIsDebuff = EA_SPELLINFO_TARGET_SPELLID.isDebuff
 			if eaf ~= nil then
 				eaf:ClearAllPoints()
 				if EA_Position.Tar_NewLine then
@@ -2309,11 +2321,12 @@ function EventAlert_TarPositionFrames()
 				--if gsiIsDebuff then eaf.texture:SetColorTexture(EA_Position.GreenDebuff,1.0,EA_Position.GreenDebuff) end
 				if gsiIsDebuff then eaf.texture:SetVertexColor(EA_Position.GreenDebuff,1.0,EA_Position.GreenDebuff) end
 				if (EA_Config.ShowName == true) then
-					-- print(tmp,gsiValue1,gsiValue2,gsiValue3)
-					local tmp={}
+					
+					tmp={}
 					tinsert(tmp,gsiName)
 					if gsiValue and type(gsiValue)=="table" then
 						for k,v in pairs(gsiValue) do
+							v = tonumber(v) --avoid true/false boolean value
 							if v and (v > ShowAuraValueWhenOver) then 
 								if v > 10000 then v = format("%.1f萬",v/10000) end
 								-- tmp = tmp.."\n"..v 
@@ -3419,9 +3432,11 @@ function EventAlert_UpdateSinglePower(iPowerType)
 					else
 						coord = runeSetTexCoord[GetShapeshiftForm()]												
 					end
-					eaf.texture:SetTexCoord(coord.minX, coord.maxX, coord.minY, coord.maxY)	
+					if coord then
+						eaf.texture:SetTexCoord(coord.minX, coord.maxX, coord.minY, coord.maxY)	
 					
-					eaf:SetPoint(EA_Position.Anchor, prevFrame, EA_Position.Anchor, -2 * xOffset, -2 * yOffset)																							
+						eaf:SetPoint(EA_Position.Anchor, prevFrame, EA_Position.Anchor, -2 * xOffset, -2 * yOffset)	
+					end
 				end	
 				
 				
@@ -3491,12 +3506,12 @@ function EventAlert_UpdateSinglePower(iPowerType)
 							FrameGlowShowOrHide(eaf, (iUnitPower >= 80 ))							
 						end
 						--若為武器專精則以斬殺最高需求值40高亮
-						if GetSpecialization and (GetSpecialization() == 1) then
+						if GetSpecialization and  (GetSpecialization() == 1) then
 							--FrameGlowShowOrHide(eaf, (iUnitPower >= UnitPowerMax(unit, Enum.PowerType.Rage)))
 							FrameGlowShowOrHide(eaf, (iUnitPower >= 40))
 						end
 						--若為防護專精則以無視苦痛需求值40高亮
-						if GetSpecialization and (GetSpecialization() == 3) then
+						if GetSpecialization and  (GetSpecialization() == 3) then
 							--FrameGlowShowOrHide(eaf, (iUnitPower >=UnitPowerMax(unit, Enum.PowerType.Rage)))					
 							FrameGlowShowOrHide(eaf, (iUnitPower >= 40 ))					
 						end						
@@ -4181,7 +4196,7 @@ function EventAlert_GroupFrameCheck_OnEvent(self, event, ...)
 			--5.1:GetActiveTalentGroup() -> GetActiveSpecGroup()
 			--iActiveTalentGroup = GetActiveSpecGroup()
 			--7.0 GetActiveSpecGroup() -> GetSpecialization()
-			iActiveTalentGroup = GetSpecialization and GetSpecialization()
+			iActiveTalentGroup =  GetSpecialization and GetSpecialization()
 			if (iActiveTalentGroup ~= self.GC.ActiveTalentGroup) then
 				fShowResult = false
 			end
@@ -4222,7 +4237,7 @@ function EventAlert_GroupFrameCheck_OnEvent(self, event, ...)
 			-- If the Active-Talent should be checked
 			--5.1:GetActiveTalentGroup() -> GetActiveSpecGroup()
 			--7.0 GetActiveSpecGroup() -> GetSpecialization()
-			iActiveTalentGroup = GetSpecialization and  GetSpecialization()
+			iActiveTalentGroup = GetSpecialization()
 			if (iActiveTalentGroup ~= self.GC.ActiveTalentGroup) then
 				fShowResult = false
 				EAFun_FireEventCheckHide(self)
@@ -4400,7 +4415,7 @@ function EventAlert_IsActiveTalentBySpellID(Chk_spellID)
 	local c=0
 	local talent_row_max = 7
 	local talent_col_max = 3
-	local playerSpecGroup = GetActiveSpecGroup and GetActiveSpecGroup()
+	local playerSpecGroup = GetActiveSpecGroup()
 	local talent_row = 0
 	local talent_col = 0
 	local isActiveTalentSpellID = false
