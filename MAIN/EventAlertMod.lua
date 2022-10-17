@@ -118,8 +118,8 @@ EA_flagAllHidden = false
 --------------------------------
 -- For OnUpdate Using, only Gloabal Var.
 --------------------------------
---EventAlert_UpdateInterval 				= 1/7.75 --Second
-EventAlert_UpdateInterval 				= 0.17
+--EventAlert_UpdateInterval 			= 1/7.75 --Second
+EventAlert_UpdateInterval 				= 0.1
 --------------------------------
 EventAlert_DEBUG = {}
 --------------------------------
@@ -250,7 +250,9 @@ function EventAlert_OnLoad(self)
 	EventAlert_InitSlashCommand()
 	-- Init Main Array
 	-- EventAlert_InitArray()	
-	 local tempInterval = 1
+	
+	 -- local tempInterval = 0.1
+	 local tempInterval = EventAlert_UpdateInterval * 10
 	 Lib_ZYF:SetOnUpdate(tempInterval, EventAlert_Icon_Options_Frame_AdjustTimerFontSize)
 	 Lib_ZYF:SetOnUpdate(tempInterval, EventAlert_SpecialFrame_Update)
 	 Lib_ZYF:SetOnUpdate(tempInterval, EventAlert_PositionFrames)
@@ -399,7 +401,7 @@ function EventAlert_InitArrayConfig()
 	SetNewValue(EA_Config, "NewLineByIconCount",	0)
 	SetNewValue(EA_Config, "BaseFontSize",			26)	
 	
-	EventAlert_CreateSpellItemCache()
+	-- EventAlert_CreateSpellItemCache()
 	EventAlert_Icon_Options_Frame_AdjustTimerFontSize()
 end
 -------------------------------------------------------
@@ -712,7 +714,7 @@ end
 function EventAlert_UNIT_SPELLCAST_FAILED(self, event, unitCaster, CastGUID, spellId)
 	
 	if unitCaster == "player" then
-		EventAlert_ScdBuffs_Update(unitCaster,GetSpellInfo(spellId), spellId)
+		--EventAlert_ScdBuffs_Update(unitCaster,GetSpellInfo(spellId), spellId)
 	end
 end
 function EventAlert_BAG_UPDATE_COOLDOWN(self,event,...)
@@ -1565,7 +1567,9 @@ function EventAlert_ScdBuffs_Update(EA_Unit, EA_SpellName, EA_spellID, EA_timest
 			if (SpellEnable) then
 				-- DEFAULT_CHAT_FRAME:AddMessage("spellID="..spellID.." / EA_ScdItems[EA_playerClass][spellID]=true")
 				local strspellID = tostring(spellID)
+
 				local eaf = _G["EAScdFrame_"..strspellID]
+
 				insertBuffValue(EA_ScdCurrentBuffs, spellID)				
 				--if EA_SPELLINFO_SCD[spellID].start == nil then
 				local EA_start, EA_duration, EA_Enable = GetSpellCooldown(spellID)
@@ -1601,9 +1605,16 @@ function EventAlert_ScdBuffs_Update(EA_Unit, EA_SpellName, EA_spellID, EA_timest
 						--eaf:SetBackdrop({bgFile = gsiIcon})
 						eaf:SetWidth(EA_Config.IconSize)
 						eaf:SetHeight(EA_Config.IconSize)
-						eaf:SetAlpha(1)
-						
-						Lib_ZYF:FrameSetOnUpdate(eaf,  EventAlert_UpdateInterval ,EventAlert_OnSCDUpdate, spellID)
+
+						eaf:SetAlpha(1)	
+
+						-- local tmpUpdateInterval = EventAlert_UpdateInterval 
+						-- if EA_start and (t - EA_start) > 1  then 
+							-- tmpUpdateInterval = tmpUpdateInterval * 10	 
+						-- else
+							-- tmpUpdateInterval = tmpUpdateInterval * 1	 
+						-- end
+						-- Lib_ZYF:FrameSetOnUpdate(eaf, tmpUpdateInterval , EventAlert_OnSCDUpdate, spellID)
 						
 						-- eaf:SetScript("OnUpdate", function(self,elapsedTime)
 							 -- EventAlert_TimeSinceUpdate_SCD = EventAlert_TimeSinceUpdate_SCD + elapsedTime
@@ -1674,13 +1685,13 @@ function EventAlert_SPELL_UPDATE_USABLE()
 	local EA_CurrentBuffs = EA_CurrentBuffs
 	local AltItems = EA_AltItems[EA_playerClass]
 	local SpellEnable = false
-	local s,v,v2
+	local s,v,v2,i2
 	local spellID
 	local flag_usable, flag_nomana
 	if (EA_Config.AllowAltAlerts==true) then
 		-- DEFAULT_CHAT_FRAME:AddMessage("spell-active: "..spellName)
 		-- searching for the spell-id, because we only get the name of the spell
-		for s,v in pairs(AltItems) do
+		for s, v in pairs(AltItems) do
 			spellID = tonumber(s)
 			SpellEnable = v.enable
 			local v2 = table.foreach(EA_CurrentBuffs,
@@ -1891,30 +1902,32 @@ function EventAlert_OnSCDUpdate(spellID)
 	
 	local flagFind = false
 	local i
+	local p = "player"
+	local tmpStart, tmpDuration, tmpEnable
+	local flagSameSpell=false
 	for i=17, 1, -1 do 
 		if flagFind then break end
-		tmpItemID  = GetInventoryItemID("player",i)		
+		tmpItemID  = GetInventoryItemID(p, i)		
 		if tmpItemID then 
 			tmpSpellID = select(2, GetItemSpell(tmpItemID))
 			if tmpSpellID == 55004 then tmpSpellID = 54861 end
 			if (spellID == tmpSpellID) then			
 				--EA_start, EA_duration, EA_Enable = GetSpellCooldown(spellID)
 				--EA_start, EA_duration, EA_Enable = GetItemCooldown(tmpItemID)
-				EA_start, EA_duration, EA_Enable = GetInventoryItemCooldown("player",i)
+				EA_start, EA_duration, EA_Enable = GetInventoryItemCooldown(p, i)
 				
-				local tmpStart,tmpDuration,tmpEnable
-				local flagSameSpell=false
+				flagSameSpell=false
 				--處理共同法術ID飾品問題
-				if (i==13) then 					
-					tmpStart, tmpDuration, tmpEnable = GetInventoryItemCooldown("player",14)
-					tmpSpellID2 = select(2, GetItemSpell(GetInventoryItemID("player",14)))					
+				if (i == 13) then 					
+					tmpStart, tmpDuration, tmpEnable = GetInventoryItemCooldown(p, 14)
+					tmpSpellID2 = select(2, GetItemSpell(GetInventoryItemID(p, 14)))					
 					if spellID == tmpSpellID2 then												
 						flagSameSpell = true
 					end
 				end 
 				if (i==14) then 
-					tmpStart, tmpDuration, tmpEnable = GetInventoryItemCooldown("player",13)
-					tmpSpellID2 = select(2, GetItemSpell(GetInventoryItemID("player",13)))					
+					tmpStart, tmpDuration, tmpEnable = GetInventoryItemCooldown(p, 13)
+					tmpSpellID2 = select(2, GetItemSpell(GetInventoryItemID(p, 13)))					
 					if spellID == tmpSpellID2  then																		
 							flagSameSpell = true						
 					end
@@ -1936,23 +1949,20 @@ function EventAlert_OnSCDUpdate(spellID)
 			end
 		end
 		
-	end
+	end     
 	
-	
-		local bagID, slotID
-		for bagID = 0, 4 do 
-			if flagFind then break end
-			for slotID = 1, GetContainerNumSlots(bagID) do
-				tmpItemID = GetContainerItemID(bagID, slotID)
-				if tmpItemID and spellID == select(2, GetItemSpell(tmpItemID)) then					
-					EA_start, EA_duration, EA_Enable = GetItemCooldown(tmpItemID)
-					flagFind = true
-					break			
-				end						
-			end		
-		end
-	
-	
+	-- local bagID, slotID
+	-- for bagID = 0, 4 do 
+		-- if flagFind then break end
+		-- for slotID = 1, GetContainerNumSlots(bagID) do
+			-- tmpItemID = GetContainerItemID(bagID, slotID)
+			-- if tmpItemID and spellID == select(2, GetItemSpell(tmpItemID)) then					
+				-- EA_start, EA_duration, EA_Enable = GetItemCooldown(tmpItemID)
+				-- flagFind = true
+				-- break			
+			-- end						
+		-- end		
+	-- end
 	
 	if flagFind==false then
 		--local itemID = EA_Config.EA_SPELL_ITEM[spellID]
@@ -2041,7 +2051,7 @@ function EventAlert_OnSCDUpdate(spellID)
 				EA_timeLeft = EA_start + EA_duration - GetTime()
 				
 				local EA_GCD 
-				EngClass = select(2,UnitClass("player"))
+				EngClass = select(2, UnitClass(p))
 				if (EngClass==EA_CLASS_ROGUE) or 
 				   (EngClass==EA_CLASS_DRUID and GetShapeshiftForm()==2 ) then
 					EA_GCD = 1
@@ -2214,7 +2224,7 @@ function EventAlert_PositionFrames()
 				end
 				eaf.spellTimer:SetFont(EA_FONTS, EA_Config.TimerFontSize, "OUTLINE")
 				eaf.spellStack:SetFont(EA_FONTS, EA_Config.StackFontSize, "OUTLINE")
-				Lib_ZYF:FrameSetOnUpdate(eaf,EventAlert_UpdateInterval,EventAlert_OnUpdate,spellID)
+				Lib_ZYF:FrameSetOnUpdate(eaf, EventAlert_UpdateInterval, EventAlert_OnUpdate, spellID)
 				-- eaf:SetScript("OnUpdate", function(self,elapsedTime)
 					-- EventAlert_TimeSinceUpdate_Self = EventAlert_TimeSinceUpdate_Self + elapsedTime
 					-- if EventAlert_TimeSinceUpdate_Self > EventAlert_UpdateInterval then
@@ -2401,7 +2411,8 @@ function EventAlert_ScdPositionFrames()
 		local SfontName, SfontSize = "", 0
 		
 		local s, v
-		local k, v2				
+		local k, v2		
+		
 		for s, v in pairs(EA_ScdItems[EA_playerClass]) do
 			if EA_SPELLINFO_SCD[s] then
 				for k, v2 in pairs(v) do 
@@ -2427,6 +2438,8 @@ function EventAlert_ScdPositionFrames()
 		local modvalue
 		local divvalue
 		local SfontName, SfontSize
+		local EA_start
+		local tmpUpdateInterval
 		
 		for i, v in ipairs(EA_ScdCurrentBuffs) do
 			eaf = _G["EAScdFrame_"..v]
@@ -2464,6 +2477,9 @@ function EventAlert_ScdPositionFrames()
 				--增加鼠標提示
 				FrameAppendSpellTip(eaf, spellID)
 				prevFrame = eaf
+								
+				Lib_ZYF:FrameSetOnUpdate(eaf, EventAlert_UpdateInterval , EventAlert_OnSCDUpdate, spellID)
+				
 				if eaf:IsShown()==false then  eaf:Show() end
 			end
 		end		
@@ -3670,7 +3686,7 @@ function EventAlert_UpdateLifeBloom(EA_Unit)
 					else
 						eaf.spellName:SetText("")
 					end
-					Lib_ZYF:FrameSetOnUpdate(eaf, EventAlert_UpdateInterval,EventAlert_OnLifeBloomUpdate)
+					Lib_ZYF:FrameSetOnUpdate(eaf, EventAlert_UpdateInterval, EventAlert_OnLifeBloomUpdate)
 					-- eaf:SetScript("OnUpdate", function(self,elapsedTime)
 					-- EventAlert_TimeSinceUpdate_LifeBloom =EventAlert_TimeSinceUpdate_LifeBloom + elapsedTime
 					-- if EventAlert_TimeSinceUpdate_LifeBloom > EventAlert_UpdateInterval then
@@ -4710,19 +4726,20 @@ function RemoveAllScdCurrentBuff()
 	local SpellName, SpellIcon, HasSpell
 	local eaf
 	local spellID
-	local k,v 
+	local i,k,v 
 	
-	for k,v in ipairs(EA_ScdCurrentBuffs) do
+	for i,v in ipairs(EA_ScdCurrentBuffs) do
 		SpellName,SpellIcon = GetSpellInfo(v),GetSpellTexture(v)
 		HasSpell=GetSpellInfo(SpellName)
 		if HasSpell==nil then
 			eaf = _G[tconcat({"EAScdFrame_",v})]
 			spellID = tonumber(v)
-			eaf:Hide()
-			removeBuffValue(EA_ScdCurrentBuffs,v)
-			-- eaf:SetScript("OnUpdate", nil)
-			Lib_ZYF:ClrOnUpdate(eaf)
+			-- eaf:Hide()//
 			removeBuffValue(EA_ScdCurrentBuffs, spellID)
+			-- removeBuffValue(EA_ScdCurrentBuffs,v)
+			-- eaf:SetScript("OnUpdate", nil)			
+			Lib_ZYF:StopOnUpdate(eaf)
+
 		end
 	end
 end
@@ -4735,9 +4752,7 @@ function RemoveSingleSCDCurrentBuff(spellID)
 			local spellID = tonumber(spellID)
 			eaf:Hide()
 			removeBuffValue(EA_ScdCurrentBuffs,spellID)
-			-- eaf:SetScript("OnUpdate", nil)
-			Lib_ZYF:ClrOnUpdate(eaf)
-			removeBuffValue(EA_ScdCurrentBuffs, spellID)
+			Lib_ZYF:StopOnUpdate(eaf)			
 		--end	
 end
 -----------------------------------------------------------------
@@ -4805,7 +4820,7 @@ end
 --
 --ButtonGlow_Stop(frame)
 --Stops glow over target frame
-function FrameGlowShowOrHide(eaf,boolShow)
+function FrameGlowShowOrHide(eaf, boolShow)
 	
 	if eaf==nil then return end
 	
@@ -4816,7 +4831,7 @@ function FrameGlowShowOrHide(eaf,boolShow)
 		
 		if (eaf.overgrow==nil) or (eaf.overgrow==false) then			
 			--LibStub("LibCustomGlow-1.0").PixelGlow_Start(eaf,{0.95,0.95,0.32,1.0},8,0.125,8,4,0,0,true)
-			GlowStart(eaf, {0.95, 0.95, 0.5, 1}, 1/12)
+			GlowStart(eaf, {0.95, 0.95, 0.5, 1}, 1/8)
 			eaf.overgrow = true		
 		end
 	else
