@@ -4,7 +4,7 @@
 ## Title-zhCN: EventAlertMod 法术监控触发提示
 ## Title-zhKR: EventAlertMod 맞춤법 모니터링 트리거 프롬프트
 ## Author: ziyuefan(死鬥)
-## Version: WOTLKC 3.4.0_2022.09.26
+## Version: WOTLKC_3.4.0_2022.10.28
 ## Notes: To notice or warning the specific Spells/Skills in large icon for the player. Command: /eam opt. By |cff69ccf0ACDACD@TW-REALM|r
 ## Notes-zhTW: 監控的法術觸發時, 以大型法術圖示來提示玩家, 法術設定指令:/eam opt. 指令說明:/eam help.
 ## Notes-zhCN: 监控的法术触发时, 以大型法术图示来提示玩家, 法术设定指令:/eam opt. 指令说明:/eam help.
