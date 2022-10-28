@@ -8,7 +8,8 @@
 	<Script file="EventAlert_Animation.lua" />			
 	<Script file="EventAlertMod.lua" />		
 	
-	<Frame visible="true" name="EA_Main_Frame" parent="UIParent" toplevel="true" frameStrata="LOW" enableKeyboard="true">
+	<!-- <Frame visible="true" name="EA_Main_Frame" parent="UIParent" toplevel="true" frameStrata="LOW" enableKeyboard="true"> -->
+	<Frame name="EA_Main_Frame" parent="UIParent" toplevel="true" frameStrata="LOW" enableKeyboard="true">
 		<Size>
 			<AbsDimension x="1" y="1" />
 		</Size>
@@ -38,7 +39,7 @@
 		</Anchors>
 		
 		<Frames>
-			<Button name="$parent_Okay" inherits="OptionsButtonTemplate" text="Okay">
+			<Button name="$parent_Okay" inherits="UIPanelButtonTemplate" text="Okay">
 				<Size>
 					<AbsDimension x="75" y="21" />
 				</Size>

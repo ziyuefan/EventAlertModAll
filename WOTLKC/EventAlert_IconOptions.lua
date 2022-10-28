@@ -9,15 +9,15 @@ local _G = _G
 
 function EventAlert_Icon_Options_Frame_OnLoad()
 	-- UIPanelWindows["EA_Icon_Options_Frame"] = {area = "center", pushable = 0}
-	Lib_ZYF:SetBackdrop(EA_Icon_Options_Frame,{bgFile="interface/dialogframe/ui-dialogbox-gold-background", 
+	Lib_ZYF:SetBackdrop(EA_Icon_Options_Frame, {bgFile="interface/dialogframe/ui-dialogbox-gold-background", 
 											   edgeFile="interface/dialogframe/ui-dialogbox-gold-border", 
 											   tile = true, 	
 											   tileSize = 32, 
 											   edgeSize = 32, 
 											   insets = { left = 11, right = 12, top = 11, bottom = 11, },
 											  })
-	Lib_ZYF:SetBackdropColor(EA_Icon_Options_Frame,1,1,1,2/1)
-	Lib_ZYF:SetBackdropBorderColor(EA_Icon_Options_Frame,1,1,1,1)
+	-- Lib_ZYF:SetBackdropColor(EA_Icon_Options_Frame, 1, 1, 1, 2/1)
+	-- Lib_ZYF:SetBackdropBorderColor(EA_Icon_Options_Frame, 1, 1, 1, 1)
 end
 
 function EventAlert_Icon_Options_Frame_Init()
