@@ -79,7 +79,7 @@
 		</Layers>
 
 		<Frames>
-			<Button name="$parent_SelAll" inherits="OptionsButtonTemplate" text="">
+			<Button name="$parent_SelAll" inherits="UIPanelButtonTemplate" text="">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent">
 						<Offset>
@@ -99,7 +99,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			<Button name="$parent_ClrAll" inherits="OptionsButtonTemplate" text="">
+			<Button name="$parent_ClrAll" inherits="UIPanelButtonTemplate" text="">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent_SelAll" relativePoint="TOPRIGHT">
 						<Offset>
@@ -119,7 +119,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			<Button name="$parent_LoadDefault" inherits="OptionsButtonTemplate" text="">
+			<Button name="$parent_LoadDefault" inherits="UIPanelButtonTemplate" text="">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent_ClrAll" relativePoint="TOPRIGHT">
 						<Offset>
@@ -139,7 +139,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			<Button name="$parent_RemoveAll" inherits="OptionsButtonTemplate" text="">
+			<Button name="$parent_RemoveAll" inherits="UIPanelButtonTemplate" text="">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent_LoadDefault" relativePoint="TOPRIGHT">
 						<Offset>
@@ -159,7 +159,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			<CheckButton name="$parent_Target_MyDebuff" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="$parent_Target_MyDebuff" inherits="UICheckButtonTemplate">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent_SelAll" relativePoint="BOTTONLEFT">
 						<Offset>
@@ -277,7 +277,7 @@
 				</Scripts>
 				<FontString inherits="GameFontNormal" />
 			</EditBox>
-			<Button name="$parent_AddSpell" inherits="OptionsButtonTemplate" text="">
+			<Button name="$parent_AddSpell" inherits="UIPanelButtonTemplate" text="">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent_SpellEditBox" relativePoint="TOPRIGHT">
 						<Offset>
@@ -297,7 +297,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			<Button name="$parent_DelSpell" inherits="OptionsButtonTemplate" text="">
+			<Button name="$parent_DelSpell" inherits="UIPanelButtonTemplate" text="">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent_AddSpell" relativePoint="TOPRIGHT">
 						<Offset>

@@ -6,7 +6,7 @@
     
 CHANGELOG:     
 ---    
-https://github.com/ziyuefan/EventAlertModAll/blob/main/changelog.txt
+https://github.com/ziyuefan/EventAlertModAll/blob/DF_WOTLKC_20221028-1/changelog.txt
 
 ![EAM Main](https://truth.bahamut.com.tw/s01/202008/1982fcd16ac80aaddfeb299f57a71e94.JPG)
 
