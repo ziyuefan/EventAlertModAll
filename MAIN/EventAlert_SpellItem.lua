@@ -1,5 +1,14 @@
-local addonName,addon = ... 
-_G[addonName] = _G[addonName] or addon
+----------------------------------------------------
+-- Assign addon space to local G var.  
+-- For sync addon space to each lua fils
+-----------------------------------------------------
+local _
+local _G = _G
+local addonName, G = ... 
+_G[addonName] = _G[addonName] or G
+-----------------------------------
+if LibDebug then LibDebug() end
+-----------------------------------
 
 EA_SPELL_ITEM = {		
 		[113949] = 79884,
@@ -263,4 +272,4 @@ EA_SPELL_ITEM = {
 		[94428] = 67241,
 		[353737] = 186453,	
 	}
-addon.SPELL_ITEM = EA_SPELL_ITEM
+G.SPELL_ITEM = EA_SPELL_ITEM

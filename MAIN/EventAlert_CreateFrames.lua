@@ -1,11 +1,14 @@
-local addonName,addon = ... 
-_G[addonName] = _G[addonName] or addon
-
-if LibDebug then LibDebug() end
--- Prevent tainting global _.
+-----------------------------------------------------
+-- Assign addon space to local G var.  
+-- For sync addon space to each lua fils
+-----------------------------------------------------
 local _
 local _G = _G
-
+local addonName, G = ... 
+_G[addonName] = _G[addonName] or G
+-----------------------------------
+if LibDebug then LibDebug() end
+-----------------------------------
 --常用函數設為區域變數以提昇效能
 local print = print
 local pairs = pairs
@@ -207,15 +210,15 @@ function CreateFrames_CreateSpellFrame(index, typeIndex)
 	eaf.whitesectext = false
 	eaf.overgrow = false
 
-	local fontSize = EA_Config.BaseFontSize
+	
 	eaf.spellName:SetFontObject(EA_FONT_OBJECT)
-	eaf.spellName:SetPoint("TOP", eaf, "BOTTOM", 0, -0.1 * fontSize)	
+	eaf.spellName:SetPoint("TOP", eaf, "BOTTOM", 0, -5)	
 
 	eaf.spellTimer:SetFontObject(EA_FONT_OBJECT)
-	eaf.spellTimer:SetPoint("TOP", 0, 1.1 * fontSize)
+	eaf.spellTimer:SetPoint("TOP", 0, EA_Config.TimerFontSize)
 
 	eaf.spellStack:SetFontObject(EA_FONT_OBJECT)
-	eaf.spellStack:SetPoint("BOTTOMRIGHT", 0, 15)
+	eaf.spellStack:SetPoint("BOTTOMRIGHT", 0, EA_Config.StackFontSize)
 	
 	local spellId = tonumber(index)	
 	local name = GetSpellInfo(spellId)
@@ -1549,9 +1552,19 @@ function CreateFrames_CreateMinimapOptionFrame()
 								t = t.." - Show DK's Runes Cooldown Bar\n"
 								
 								t = t.."\124cff00FF00"
-								t = t.."/eam BaseFontSize n"
+								t = t.."/eam SnameFontSize n"
 								t = t.."\124r"
-								t = t.." - Set BASE font size for adjust and show TIMER,STACK and NAME\n"
+								t = t.." - Set SpellName font size for adjust and show TIMER,STACK and NAME\n"
+								
+								t = t.."\124cff00FF00"
+								t = t.."/eam TimerFontSize n"
+								t = t.."\124r"
+								t = t.." - Set Timer font size for adjust and show TIMER,STACK and NAME\n"
+								
+								t = t.."\124cff00FF00"
+								t = t.."/eam StackFontSize n"
+								t = t.."\124r"
+								t = t.." - Set Stack font size for adjust and show TIMER,STACK and NAME\n"
 								
 								t = t.."\124cff00FF00"
 								t = t.."/eam Play"

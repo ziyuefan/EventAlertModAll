@@ -1,6 +1,15 @@
--- Prevent tainting global _.
+----------------------------------------------------
+-- Assign addon space to local G var.  
+-- For sync addon space to each lua fils
+-----------------------------------------------------
 local _
 local _G = _G
+local addonName, G = ... 
+_G[addonName] = _G[addonName] or G
+-----------------------------------
+if LibDebug then LibDebug() end
+-----------------------------------
+
 if GetLocale() == "enUS" then
 
 EA_TTIP_DOALERTSOUND = "Play a sound when an event triggers."

@@ -1,7 +1,14 @@
-local addonName,addon = ... 
-_G[addonName] = _G[addonName] or addon
-
+----------------------------------------------------
+-- Assign addon space to local G var.  
+-- For sync addon space to each lua fils
+-----------------------------------------------------
+local _
+local _G = _G
+local addonName, G = ... 
+_G[addonName] = _G[addonName] or G
+-----------------------------------
 if LibDebug then LibDebug() end
+-----------------------------------
 --EA_Config2 改為初始預設值
 EA_Config2 = 	{
 

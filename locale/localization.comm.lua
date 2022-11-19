@@ -1,4 +1,17 @@
-﻿EA_CLASS_DK = "DEATHKNIGHT"
+﻿----------------------------------------------------
+-- Assign addon space to local G var.  
+-- For sync addon space to each lua fils
+-----------------------------------------------------
+local _
+local _G = _G
+local addonName, G = ... 
+_G[addonName] = _G[addonName] or G
+-----------------------------------
+if LibDebug then LibDebug() end
+-----------------------------------
+
+
+EA_CLASS_DK = "DEATHKNIGHT"
 EA_CLASS_DRUID = "DRUID"
 EA_CLASS_HUNTER = "HUNTER"
 EA_CLASS_MAGE = "MAGE"

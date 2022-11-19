@@ -1,21 +1,20 @@
-local addonName,addon = ... 
-_G[addonName] = _G[addonName] or addon
------------------------------------------------------
--- Prevent tainting global _.
+----------------------------------------------------
+-- Assign addon space to local G var.  
+-- For sync addon space to each lua fils
 -----------------------------------------------------
 local _
 local _G = _G
------------------------------------------------------
-if LibDebug then 
-	LibDebug() 
-end
------------------------------------------------------
-local UIDropDownMenu_Initialize = UIDropDownMenu_Initialize
-local UIDropDownMenu_SetSelectedValue = UIDropDownMenu_SetSelectedValue
-local UIDropDownMenu_GetSelectedValue = UIDropDownMenu_GetSelectedValue
-local UIDropDownMenu_AddButton = UIDropDownMenu_AddButton
-local UIDropDownMenu_SetWidth = UIDropDownMenu_SetWidth
-local UIDropDownMenu_SetSelectedID = UIDropDownMenu_SetSelectedID
+local addonName, G = ... 
+_G[addonName] = _G[addonName] or G
+-----------------------------------
+if LibDebug then LibDebug() end
+-----------------------------------
+local UIDropDownMenu_Initialize			= UIDropDownMenu_Initialize
+local UIDropDownMenu_SetSelectedValue	= UIDropDownMenu_SetSelectedValue
+local UIDropDownMenu_GetSelectedValue	= UIDropDownMenu_GetSelectedValue
+local UIDropDownMenu_AddButton 			= UIDropDownMenu_AddButton
+local UIDropDownMenu_SetWidth 			= UIDropDownMenu_SetWidth
+local UIDropDownMenu_SetSelectedID 		= UIDropDownMenu_SetSelectedID
 -----------------------------------------------------
 function EventAlert_Options_OnLoad()
 	-- UIPanelWindows["EA_Options_Frame"] = {area = "center", pushable = 0}
