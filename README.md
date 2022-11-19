@@ -6,7 +6,7 @@
     
 CHANGELOG:     
 ---    
-https://github.com/ziyuefan/EventAlertModAll/blob/DF_WOTLKC_20221028-1/changelog.txt
+https://github.com/ziyuefan/EventAlertModAll/blob/DF_WOTLKC_20221118/changelog.txt
 
 ![EAM Main](https://truth.bahamut.com.tw/s01/202008/1982fcd16ac80aaddfeb299f57a71e94.JPG)
 
@@ -59,8 +59,9 @@ https://github.com/ziyuefan/EventAlertModAll/blob/DF_WOTLKC_20221028-1/changelog
 > /eam ShowRunesBar
 開關型指令,用來決定是否顯示死騎符文列(2020/10/18新增)
 
-> /eam BaseFontSize n
-由於字體大小不再跟隨圖示大小縮放,
-所以另提供指令更改基礎字體大小,
-計時、堆疊、名稱皆與此基礎字體大
-小做等比例縮放
+> /eam SNameFontSize n
+更改法術名稱大小
+> /eam TimerFontSize n
+更改計時數字大小
+> /eam StackFontSize n
+更改堆疊層數數字大小
