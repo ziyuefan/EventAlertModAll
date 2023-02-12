@@ -1,11 +1,14 @@
-local addonName,addon = ... 
-_G[addonName] = _G[addonName] or addon
-
-if LibDebug then LibDebug() end
--- Prevent tainting global _.
+-----------------------------------------------------
+-- Assign addon space to local G var.  
+-- For sync addon space to each lua fils
+-----------------------------------------------------
 local _
 local _G = _G
-
+local addonName, G = ... 
+_G[addonName] = _G[addonName] or G
+-----------------------------------
+if LibDebug then LibDebug() end
+-----------------------------------
 --常用函數設為區域變數以提昇效能
 local print = print
 local pairs = pairs
@@ -207,22 +210,25 @@ function CreateFrames_CreateSpellFrame(index, typeIndex)
 	eaf.whitesectext = false
 	eaf.overgrow = false
 
-	local fontSize = EA_Config.BaseFontSize
+	
 	eaf.spellName:SetFontObject(EA_FONT_OBJECT)
-	eaf.spellName:SetPoint("TOP", eaf, "BOTTOM", 0, -0.1 * fontSize)	
+	eaf.spellName:SetPoint("TOP", eaf, "BOTTOM", 0, -5)	
 
 	eaf.spellTimer:SetFontObject(EA_FONT_OBJECT)
-	eaf.spellTimer:SetPoint("TOP", 0, 1.1 * fontSize)
+	eaf.spellTimer:SetPoint("TOP", 0, EA_Config.TimerFontSize)
 
 	eaf.spellStack:SetFontObject(EA_FONT_OBJECT)
-	eaf.spellStack:SetPoint("BOTTOMRIGHT", 0, 15)
+	eaf.spellStack:SetPoint("BOTTOMRIGHT", 0, EA_Config.StackFontSize)
 	
 	local spellId = tonumber(index)	
 	local name = GetSpellInfo(spellId)
 	local icon = GetSpellTexture(spellId)
 	
 	if typeIndex == 1 then
-		if EA_SPELLINFO_SELF[spellId] == nil then EA_SPELLINFO_SELF[spellId] = {name,  icon, count, duration, expirationTime, unitCaster, isDebuff} end
+		if EA_SPELLINFO_SELF[spellId] == nil then 
+			EA_SPELLINFO_SELF[spellId] = {name,  icon, count, duration, expirationTime, unitCaster, isDebuff} 
+		end
+		
 		EA_SPELLINFO_SELF[spellId].name = name
 		
 		if (spellId == 48517) then          -- Druid / Eclipse (Solar): replace the Icon as Wrath (Rank 1)
@@ -234,12 +240,16 @@ function CreateFrames_CreateSpellFrame(index, typeIndex)
 		end
 		EA_SPELLINFO_SELF[spellId].icon = icon
 	elseif typeIndex == 2 then
-		if EA_SPELLINFO_TARGET[spellId] == nil then EA_SPELLINFO_TARGET[spellId] = {name,  icon, count, duration, expirationTime, unitCaster, isDebuff} end
-		EA_SPELLINFO_TARGET[spellId].name = name
+		if EA_SPELLINFO_TARGET[spellId] == nil then 
+			EA_SPELLINFO_TARGET[spellId] = {name,  icon, count, duration, expirationTime, unitCaster, isDebuff} 
+		end
 		
+		EA_SPELLINFO_TARGET[spellId].name = name		
 		EA_SPELLINFO_TARGET[spellId].icon = icon
 	elseif typeIndex == 3 then
-		if EA_SPELLINFO_SCD[spellId] == nil then EA_SPELLINFO_SCD[spellId] = {name, icon} end
+		if EA_SPELLINFO_SCD[spellId] == nil then 
+			EA_SPELLINFO_SCD[spellId] = {name, icon} 
+		end
 		
 		EA_SPELLINFO_SCD[spellId].name = name		
 		EA_SPELLINFO_SCD[spellId].icon = icon
@@ -346,16 +356,18 @@ if EA_flagAllHidden == true then
 	elseif index == EA_SpecPower.Runes.frameindex[0] then
 		-- 死亡騎士符文的圖案
 		--Lib_ZYF:SetBackdrop(eaf,{bgFile=iconTextures[GetSpecialization()]})
-		--eaf.texture:SetTexture(runeTextures[GetSpecialization()])	
+		--eaf.texture:SetTexture(runeTextures[GetSpecialization()])
 		
-		eaf.texture:SetTexture(1630812)			
 		local coord
+		eaf.texture:SetTexture(1630812)			
 		if GetSpecialization then
 			coord = runeSetTexCoord[GetSpecialization()]								
 		else
 			coord = runeSetTexCoord[GetShapeshiftForm()]			
 		end		
-		eaf.texture:SetTexCoord(coord.minX, coord.maxX, coord.minY, coord.maxY)	
+		if coord then
+			eaf.texture:SetTexCoord(coord.minX, coord.maxX, coord.minY, coord.maxY)	
+		end 
 		
 	elseif index == EA_SpecPower.SoulShards.frameindex[1] then
 		-- 術士靈魂碎片的圖案
@@ -531,7 +543,7 @@ function CreateFrames_CreateSpellListChkbox(SpellID, FrameNamePrefix, ParentFram
 
 	local SpellChkbox = _G[FrameNamePrefix..SpellID]
 	if (SpellChkbox == nil) then
-		SpellChkbox = CreateFrame("CheckButton", FrameNamePrefix..SpellID, ParentFrameObj, "OptionsCheckButtonTemplate")
+		SpellChkbox = CreateFrame("CheckButton", FrameNamePrefix..SpellID, ParentFrameObj, "UICheckButtonTemplate")
 	end
 	SpellChkbox:SetPoint("TOPLEFT", LocOffsetX + 25, LocOffsetY)
 	SpellChkbox:SetChecked(fValue)
@@ -1484,7 +1496,8 @@ function CreateFrames_CreateMinimapOptionFrame()
 								t = t..EA_XCMD_CMDHELP["TITLE"].."\n"
 								t = t..EA_XCMD_CMDHELP["OPT"].."\n"
 								t = t..EA_XCMD_CMDHELP["HELP"].."\n"
-							
+								
+								local k,v
 								for k,v in pairs(EA_XCMD_CMDHELP) do
 									if v[1] then t = t..v[1].."\n"..v[2].."\n" end									
 								end
@@ -1539,9 +1552,19 @@ function CreateFrames_CreateMinimapOptionFrame()
 								t = t.." - Show DK's Runes Cooldown Bar\n"
 								
 								t = t.."\124cff00FF00"
-								t = t.."/eam BaseFontSize n"
+								t = t.."/eam SnameFontSize n"
 								t = t.."\124r"
-								t = t.." - Set BASE font size for adjust and show TIMER,STACK and NAME\n"
+								t = t.." - Set SpellName font size for adjust and show TIMER,STACK and NAME\n"
+								
+								t = t.."\124cff00FF00"
+								t = t.."/eam TimerFontSize n"
+								t = t.."\124r"
+								t = t.." - Set Timer font size for adjust and show TIMER,STACK and NAME\n"
+								
+								t = t.."\124cff00FF00"
+								t = t.."/eam StackFontSize n"
+								t = t.."\124r"
+								t = t.." - Set Stack font size for adjust and show TIMER,STACK and NAME\n"
 								
 								t = t.."\124cff00FF00"
 								t = t.."/eam Play"

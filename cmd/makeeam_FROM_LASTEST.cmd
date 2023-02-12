@@ -33,8 +33,8 @@ set srcpath1=D:\WOW\UI\Temp\%addon1%
 set srcpath2=D:\WOW\UI\Temp\%addon2%
 
 set destpath=D:\WOW\UI\%addon1%
-set wowversion=SL9.2.7_WOTLKC3.4.0
-"C:\Program Files\7-Zip\7z.exe" a "%destpath%\%addon1%_%wowversion%_%MYDATE%_%MYTIME%.zip" "%srcpath1%"
-"C:\Program Files\7-Zip\7z.exe" a "%destpath%\%addon1%_%wowversion%_%MYDATE%_%MYTIME%.zip" "%srcpath2%"
+set wowversion=DF10.0.5_WOTLKC3.4.1
+"C:\Program Files\7-Zip\7z.exe" a "%destpath%\%addon1%_%wowversion%_%MYDATE%_%MYTIME%.zip" "%srcpath1%" -x!.*
+"C:\Program Files\7-Zip\7z.exe" a "%destpath%\%addon1%_%wowversion%_%MYDATE%_%MYTIME%.zip" "%srcpath2%" -x!.*
 explorer "%destpath%"
 pause

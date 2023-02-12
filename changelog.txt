@@ -1,4 +1,34 @@
-﻿----------------------------
+﻿-- [Retail  DF    ]2022.12.22
+-- [Classic WOTLKC]2022.12.22
+-- 修復比重排序
+
+-- [Retail  DF    ]2022.11.18
+-- [Classic WOTLKC]2022.11.18
+-- DF:修復鼠標提示法術ID與物品ID顯示
+-- DF:移除 /eam basefontsize 指令
+-- DF:增加 /eam StackFontSize nSize 指令以改變堆疊層數大小(不分大小寫,亦可以/eam sfs nSize代替)
+-- DF:增加 /eam TimerFontSize nSize 以改變計時數字大小(不分大小寫,亦可以/eam tfs nSize代替)
+-- DF:增加 /eam SNameFontSize nSize 以改變法術名稱大小(不分大小寫,亦可以/eam nfs nSize代替)
+-- WOTLKC:測試相容性OK
+
+-- [Classic WOTLKC]2022.10.28
+-- [Retail  DF    ]2022.10.28
+-- DF:異動Button及CheckButton使用模板,以使正常顯示
+-- DF:移除XML內未用屬性避免WARNING報錯
+-- WOTLKC: 相容性測試OK
+----------------------------
+-- [Classic WOTLKC]2022.10.18
+-- [Retail  SL    ]2022.10.18
+-- 冷卻模組暫時不再偵測背包物品冷卻以增進效能(背包物品的冷卻將偵測不到)
+----------------------------
+-- [Classic WOTLKC]2022.10.01
+----------------------------
+-- 修復相關專精函數造成WLK版本之錯誤,並與SL版本相容
+----------------------------
+-- [Classic WOTLKC]2022.09.27
+----------------------------
+-- 修復BUFF顯示
+----------------------------
 -- [Classic WOTLKC] 2022.09.26
 ----------------------------
 -- 以SL 9.2.5 版本之EAM重新作為WOTLKC之基礎版本

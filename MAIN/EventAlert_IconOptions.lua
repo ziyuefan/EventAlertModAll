@@ -1,23 +1,25 @@
-local addonName,addon = ... 
-_G[addonName] = _G[addonName] or addon
-
-if LibDebug then LibDebug() end
--- Prevent tainting global _.
+----------------------------------------------------
+-- Assign addon space to local G var.  
+-- For sync addon space to each lua fils
+-----------------------------------------------------
 local _
 local _G = _G
-
-
+local addonName, G = ... 
+_G[addonName] = _G[addonName] or G
+-----------------------------------
+if LibDebug then LibDebug() end
+-----------------------------------
 function EventAlert_Icon_Options_Frame_OnLoad()
 	-- UIPanelWindows["EA_Icon_Options_Frame"] = {area = "center", pushable = 0}
-	Lib_ZYF:SetBackdrop(EA_Icon_Options_Frame,{bgFile="interface/dialogframe/ui-dialogbox-gold-background", 
+	Lib_ZYF:SetBackdrop(EA_Icon_Options_Frame, {bgFile="interface/dialogframe/ui-dialogbox-gold-background", 
 											   edgeFile="interface/dialogframe/ui-dialogbox-gold-border", 
 											   tile = true, 	
 											   tileSize = 32, 
 											   edgeSize = 32, 
 											   insets = { left = 11, right = 12, top = 11, bottom = 11, },
 											  })
-	Lib_ZYF:SetBackdropColor(EA_Icon_Options_Frame,1,1,1,2/1)
-	Lib_ZYF:SetBackdropBorderColor(EA_Icon_Options_Frame,1,1,1,1)
+	-- Lib_ZYF:SetBackdropColor(EA_Icon_Options_Frame, 1, 1, 1, 2/1)
+	-- Lib_ZYF:SetBackdropBorderColor(EA_Icon_Options_Frame, 1, 1, 1, 1)
 end
 
 function EventAlert_Icon_Options_Frame_Init()
@@ -266,24 +268,24 @@ end
 
 function EventAlert_Icon_Options_Frame_AdjustTimerFontSize()
 	
-	local fontSize = EA_Config.BaseFontSize
+	-- local fontSize = EA_Config.BaseFontSize
 	
-	if (EA_Config.ChangeTimer == true) then	--璝璸陪ボ琜ず
-		-- 璝ㄏノ计翴计
-		if (EA_Config.UseFloatSec > 0) then
-			EA_Config.TimerFontSize = fontSize * 0.8		--琜ず计ゑㄒ(Τ计翴)
-		else
-			EA_Config.TimerFontSize = fontSize	 			--琜ず计ゑㄒ(礚计翴)
-		end
-		EA_Config.StackFontSize = fontSize * 1/1.5			--帮舼璸计ゑㄒ
-	else	--璝璸陪ボ琜
-		EA_Config.TimerFontSize = fontSize * 1.25			--琜计ゑㄒ
-		EA_Config.StackFontSize = fontSize * 1/1.5 * 1.25	--帮舼璸计ゑㄒ
-	end
+	-- if (EA_Config.ChangeTimer == true) then	--璝璸陪ボ琜ず
+		-- -- 璝ㄏノ计翴计
+		-- if (EA_Config.UseFloatSec > 0) then
+			-- EA_Config.TimerFontSize = fontSize * 0.8		--琜ず计ゑㄒ(Τ计翴)
+		-- else
+			-- EA_Config.TimerFontSize = fontSize	 			--琜ず计ゑㄒ(礚计翴)
+		-- end
+		-- EA_Config.StackFontSize = fontSize * 1/1.5			--帮舼璸计ゑㄒ
+	-- else	--璝璸陪ボ琜
+		-- EA_Config.TimerFontSize = fontSize * 1.25			--琜计ゑㄒ
+		-- EA_Config.StackFontSize = fontSize * 1/1.5 * 1.25	--帮舼璸计ゑㄒ
+	-- end
 	
 	
 	
-	EA_Config.SNameFontSize = fontSize * 1/2			--嘿ゑㄒ
+	-- EA_Config.SNameFontSize = fontSize * 1/2			--嘿ゑㄒ
 	--if EA_Config.SNameFontSize < 10 then EA_Config.SNameFontSize = 10 end
 
 	--EventAlert_PositionFrames()

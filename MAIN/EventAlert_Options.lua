@@ -1,21 +1,20 @@
-local addonName,addon = ... 
-_G[addonName] = _G[addonName] or addon
------------------------------------------------------
--- Prevent tainting global _.
+----------------------------------------------------
+-- Assign addon space to local G var.  
+-- For sync addon space to each lua fils
 -----------------------------------------------------
 local _
 local _G = _G
------------------------------------------------------
-if LibDebug then 
-	LibDebug() 
-end
------------------------------------------------------
-local UIDropDownMenu_Initialize = UIDropDownMenu_Initialize
-local UIDropDownMenu_SetSelectedValue = UIDropDownMenu_SetSelectedValue
-local UIDropDownMenu_GetSelectedValue = UIDropDownMenu_GetSelectedValue
-local UIDropDownMenu_AddButton = UIDropDownMenu_AddButton
-local UIDropDownMenu_SetWidth = UIDropDownMenu_SetWidth
-local UIDropDownMenu_SetSelectedID = UIDropDownMenu_SetSelectedID
+local addonName, G = ... 
+_G[addonName] = _G[addonName] or G
+-----------------------------------
+if LibDebug then LibDebug() end
+-----------------------------------
+local UIDropDownMenu_Initialize			= UIDropDownMenu_Initialize
+local UIDropDownMenu_SetSelectedValue	= UIDropDownMenu_SetSelectedValue
+local UIDropDownMenu_GetSelectedValue	= UIDropDownMenu_GetSelectedValue
+local UIDropDownMenu_AddButton 			= UIDropDownMenu_AddButton
+local UIDropDownMenu_SetWidth 			= UIDropDownMenu_SetWidth
+local UIDropDownMenu_SetSelectedID 		= UIDropDownMenu_SetSelectedID
 -----------------------------------------------------
 function EventAlert_Options_OnLoad()
 	-- UIPanelWindows["EA_Options_Frame"] = {area = "center", pushable = 0}
@@ -1041,7 +1040,7 @@ function EAFun_GroupEvent_AddNewSpellBtn_Click(self)
 	-- <------------- Create Spell Configuration Items Starts ---------------> --
 	local CloseBtn = _G[sSpellFramePrefix.."_CloseBtn"]
 	if (CloseBtn == nil) then
-		CloseBtn = CreateFrame("Button", sSpellFramePrefix.."_CloseBtn", SpellFrame, "OptionsButtonTemplate")
+		CloseBtn = CreateFrame("Button", sSpellFramePrefix.."_CloseBtn", SpellFrame, "UIPanelButtonTemplate")
 	end
 	CloseBtn:SetWidth(20)
 	CloseBtn:SetHeight(20)
@@ -1117,7 +1116,7 @@ function EAFun_GroupEvent_AddNewSpellBtn_Click(self)
 
 	local OrderUpBtn = _G[sSpellFramePrefix.."_OrderUpBtn"]
 	if (OrderUpBtn == nil) then
-		OrderUpBtn = CreateFrame("Button", sSpellFramePrefix.."_OrderUpBtn", SpellFrame, "OptionsButtonTemplate")
+		OrderUpBtn = CreateFrame("Button", sSpellFramePrefix.."_OrderUpBtn", SpellFrame, "UIPanelButtonTemplate")
 	end
 	OrderUpBtn:SetWidth(120)
 	OrderUpBtn:SetHeight(20)
@@ -1130,7 +1129,7 @@ function EAFun_GroupEvent_AddNewSpellBtn_Click(self)
 
 	local OrderDownBtn = _G[sSpellFramePrefix.."_OrderDownBtn"]
 	if (OrderDownBtn == nil) then
-		OrderDownBtn = CreateFrame("Button", sSpellFramePrefix.."_OrderDownBtn", SpellFrame, "OptionsButtonTemplate")
+		OrderDownBtn = CreateFrame("Button", sSpellFramePrefix.."_OrderDownBtn", SpellFrame, "UIPanelButtonTemplate")
 	end
 	OrderDownBtn:SetWidth(120)
 	OrderDownBtn:SetHeight(20)
@@ -1145,7 +1144,7 @@ function EAFun_GroupEvent_AddNewSpellBtn_Click(self)
 
 	local NewCheckBtn = _G[sSpellFramePrefix.."_NewCheckBtn"]
 	if (NewCheckBtn == nil) then
-		NewCheckBtn = CreateFrame("Button", sSpellFramePrefix.."_NewCheckBtn", SpellFrame, "OptionsButtonTemplate")
+		NewCheckBtn = CreateFrame("Button", sSpellFramePrefix.."_NewCheckBtn", SpellFrame, "UIPanelButtonTemplate")
 	end
 	NewCheckBtn:SetWidth(150)
 	NewCheckBtn:SetHeight(20)
@@ -1198,7 +1197,7 @@ function EAFun_GroupEvent_AddNewCheckBtn_Click(self)
 	-- <------------- Create Check Configuration Items Starts ---------------> --
 	local CloseBtn = _G[sCheckFramePrefix.."_CloseBtn"]
 	if (CloseBtn == nil) then
-		CloseBtn = CreateFrame("Button", sCheckFramePrefix.."_CloseBtn", CheckFrame, "OptionsButtonTemplate")
+		CloseBtn = CreateFrame("Button", sCheckFramePrefix.."_CloseBtn", CheckFrame, "UIPanelButtonTemplate")
 	end
 	CloseBtn:SetWidth(20)
 	CloseBtn:SetHeight(20)
@@ -1238,7 +1237,7 @@ function EAFun_GroupEvent_AddNewCheckBtn_Click(self)
 	
 	local NewSubCheckBtn = _G[sCheckFramePrefix.."_NewSubCheckBtn"]
 	if (NewSubCheckBtn == nil) then
-		NewSubCheckBtn = CreateFrame("Button", sCheckFramePrefix.."_NewSubCheckBtn", CheckFrame, "OptionsButtonTemplate")
+		NewSubCheckBtn = CreateFrame("Button", sCheckFramePrefix.."_NewSubCheckBtn", CheckFrame, "UIPanelButtonTemplate")
 	end
 	NewSubCheckBtn:SetWidth(150)
 	NewSubCheckBtn:SetHeight(20)
@@ -1297,7 +1296,7 @@ function EAFun_GroupEvent_AddNewSubCheckBtn_Click(self)
 	-- <------------- Create SubCheck Configuration Items Starts ---------------> --
 	local CloseBtn = _G[sSubCheckFramePrefix.."_CloseBtn"]
 	if (CloseBtn == nil) then
-		CloseBtn = CreateFrame("Button", sSubCheckFramePrefix.."_CloseBtn", SubCheckFrame, "OptionsButtonTemplate")
+		CloseBtn = CreateFrame("Button", sSubCheckFramePrefix.."_CloseBtn", SubCheckFrame, "UIPanelButtonTemplate")
 	end
 	CloseBtn:SetWidth(20)
 	CloseBtn:SetHeight(20)
@@ -1632,7 +1631,7 @@ function EAFun_GroupEvent_ChangeEventType_Click(EventType, ExtraInfo)
 				--// G_Group_CfgFramePrefix..iSpellIndex.."_"..iCheckIndex.."_"..iSubCheckIndex.."_SubCheckCastByPlayerCheckBox"
 				local SubCheckCastByPlayerCheckBox = _G[sSubCheckFramePrefix.."_SubCheckCastByPlayerCheckBox"]
 				if (SubCheckCastByPlayerCheckBox == nil) then
-					SubCheckCastByPlayerCheckBox = CreateFrame("CheckButton", sSubCheckFramePrefix.."_SubCheckCastByPlayerCheckBox", SubEventFrame, "OptionsCheckButtonTemplate")
+					SubCheckCastByPlayerCheckBox = CreateFrame("CheckButton", sSubCheckFramePrefix.."_SubCheckCastByPlayerCheckBox", SubEventFrame, "UICheckButtonTemplate")
 					SubCheckCastByPlayerCheckBox:RegisterForClicks("LeftButtonDown")
 					SubCheckCastByPlayerCheckBox:SetScript("OnClick", function(self,button)end)
 				end	-- Get GroupItem Value
