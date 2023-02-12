@@ -1,0 +1,10 @@
+package-as: EventAlertMod
+
+externals:
+  embeds/EventAlertMod:
+    url: git://github.com/ziyuefan/EventAlertModALl
+    tag: latest
+
+ignore:
+  - *.code-workspace
+  - .vscode
