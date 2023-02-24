@@ -1,6 +1,14 @@
-local addonName,addon = ... 
-_G[addonName] = _G[addonName] or addon
-
+----------------------------------------------------
+-- Assign addon space to local G var.  
+-- For sync addon space to each lua fils
+-----------------------------------------------------
+local _
+local _G = _G
+local addonName, G = ... 
+_G[addonName] = _G[addonName] or G
+-----------------------------------
+if LibDebug then LibDebug() end
+-----------------------------------
 -------------------------------------------
 -- Package Animation Object for EASCDFrame
 -------------------------------------------
@@ -61,7 +69,7 @@ function EAEXF:AnimateOut(frame)
 	SetUpAnimation(frame, self.FrameAnimTable, self.AnimFinished, true)
 end
 
-addon.EAEXF = EAEXF
+G.EAEXF = EAEXF
 
 -------------------------------------------
 -- Package Animation Object for EASCDFrame 
@@ -91,4 +99,4 @@ function EASCDFrame:AnimateOut(frame)
 	SetUpAnimation(frame, self.FrameAnimTable, self.AnimFinished, true)
 end
 
-addon.EASCDFrame = EASCDFrame
+G.EASCDFrame = EASCDFrame

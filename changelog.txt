@@ -1,4 +1,28 @@
-﻿-- [Classic WOTLKC]2022.10.28
+﻿-- [Retail  DF    ]2023.02.24
+-- [Classic WOTLKC]2023.02.24
+-- DF:增加活力(精力Vigor)提示
+-- DF:修復滑鼠提示無法顯示MACRO的法術ID
+
+-- [Retail  DF    ]2023.02.18
+-- [Classic WOTLKC]2023.02.18
+-- 物品法術快取表的建立改以協程方式獲取,以避免卡頓
+-- DF: 支援喚能師(Evoker)職業、支援龍能(Essence)顯示
+
+
+-- [Retail  DF    ]2022.12.22
+-- [Classic WOTLKC]2022.12.22
+-- 修復比重排序
+
+-- [Retail  DF    ]2022.11.18
+-- [Classic WOTLKC]2022.11.18
+-- DF:修復鼠標提示法術ID與物品ID顯示
+-- DF:移除 /eam basefontsize 指令
+-- DF:增加 /eam StackFontSize nSize 指令以改變堆疊層數大小(不分大小寫,亦可以/eam sfs nSize代替)
+-- DF:增加 /eam TimerFontSize nSize 以改變計時數字大小(不分大小寫,亦可以/eam tfs nSize代替)
+-- DF:增加 /eam SNameFontSize nSize 以改變法術名稱大小(不分大小寫,亦可以/eam nfs nSize代替)
+-- WOTLKC:測試相容性OK
+
+-- [Classic WOTLKC]2022.10.28
 -- [Retail  DF    ]2022.10.28
 -- DF:異動Button及CheckButton使用模板,以使正常顯示
 -- DF:移除XML內未用屬性避免WARNING報錯

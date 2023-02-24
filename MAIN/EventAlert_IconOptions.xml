@@ -1,15 +1,27 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+<Ui xmlns="http://www.blizzard.com/wow/ui/" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+	
 	<Script file="EventAlert_IconOptions.lua" />
-	<Frame name="EA_Icon_Options_Frame" hidden="true" parent="EA_Options_Frame" toplevel="true" movable="true" frameStrata="HIGH" enableMouse="true" enableKeyboard="true">
+	
+	<Frame 	name="EA_Icon_Options_Frame" 
+			hidden="true" 
+			parent="EA_Options_Frame" 
+			toplevel="true" 
+			movable="true" 
+			frameStrata="MEDIUM" 
+			enableMouse="true" 
+			enableKeyboard="true">
 		<Size>
-			<AbsDimension x="370" y="600" />
+			<AbsDimension x="410" y="660" />
 		</Size>
 		<Anchors>
 			<Anchor relativepoint="RIGHT" point="LEFT" />
 		</Anchors>
 		
 		<Frames>
-			<CheckButton name="$parent_LockFrame" inherits="OptionsCheckButtonTemplate">
+			<CheckButton 	name="$parent_LockFrame" 
+							inherits="UICheckButtonTemplate">
 				<Anchors>
 					<Anchor point="TOPLEFT">
 						<Offset>
@@ -37,9 +49,12 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="$parent_ShareSettings" inherits="OptionsCheckButtonTemplate">
+			<CheckButton 	name="$parent_ShareSettings" 
+							inherits="UICheckButtonTemplate">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="$parent_LockFrame" relativePoint="TOPRIGHT">
+					<Anchor point="TOPLEFT" 
+							relativeTo="$parent_LockFrame" 
+							relativePoint="TOPRIGHT">
 						<Offset>
 							<AbsDimension x="100" y="0" />
 						</Offset>
@@ -65,11 +80,16 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-			<Slider name="$parent_IconSize" inherits="OptionsSliderTemplate">
+			<Slider name="$parent_IconSize" 
+					inherits="OptionsSliderTemplate">
 				<Anchors>
-					<Anchor point="TOP" relativeTo="$parent_LockFrame" relativePoint="BOTTOMLEFT">
+					
+					<!-- <Anchor point="TOP" relativeTo="$parent_LockFrame" relativePoint="BOTTOMLEFT"> -->
+					<Anchor point="TOP" 
+							relativeTo="EA_Icon_Options_Frame" 
+							relativePoint="TOP">
 						<Offset>
-							<AbsDimension x="100" y="-10" />
+							<AbsDimension x="0" y="-80" />
 						</Offset>
 					</Anchor>
 				</Anchors>
@@ -229,12 +249,13 @@
 						_G[self:GetName().."Text"]:SetText(EA_XICON_EXECUTION.."(25%)")
 						_G[self:GetName().."High"]:SetText(EA_XICON_EXEFULL)
 						_G[self:GetName().."Low"]:SetText(EA_XICON_EXECLOSE)
-						self:SetMinMaxValues(0,50.0)
+						self:SetMinMaxValues(0,100.0)
 						self:SetValueStep(5.0)
 					</OnLoad>
 					<OnValueChanged>
-						EA_Position.Execution = self:GetValue()
-						_G[self:GetName().."Text"]:SetText(EA_XICON_EXECUTION.."("..self:GetValue().."%)")
+						EA_Position.Execution = tonumber(format("%d",self:GetValue()))
+						<!-- _G[self:GetName().."Text"]:SetText(EA_XICON_EXECUTION.."("..EA_Position.Execution .."%)") -->
+						_G[self:GetName().."Text"]:SetFormattedText("%s(%d)%%", EA_XICON_EXECUTION, EA_Position.Execution) 
 					</OnValueChanged>
 					<OnEnter>
 						GameTooltip:SetOwner(self, "ANCHOR_CENTER")
@@ -245,7 +266,7 @@
 					</OnLeave>
 				</Scripts>
 			</Slider>
-			<CheckButton name="$parent_PlayerLv2BOSS" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="$parent_PlayerLv2BOSS" inherits="UICheckButtonTemplate">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent_IconExecution" relativePoint="TOPRIGHT">
 						<Offset>
@@ -273,9 +294,14 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="$parent_SCD_UseCooldown" inherits="OptionsCheckButtonTemplate">
+			
+			<!--技能冷卻使用倒數陰影 -->
+			<CheckButton 	name="$parent_SCD_UseCooldown" 
+							inherits="UICheckButtonTemplate">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="$parent_IconExecution" relativePoint="BOTTOMLEFT">
+					<Anchor point="TOPLEFT" 
+							relativeTo="$parent_IconExecution" 
+							relativePoint="BOTTOMLEFT">
 						<Offset>
 							<AbsDimension x="-40" y="-15" />
 						</Offset>
@@ -301,11 +327,17 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="$parent_SpecFlag_HolyPower" inherits="OptionsCheckButtonTemplate">
+			
+			<!--啟用停用聖能提示 -->
+			<CheckButton 	name="$parent_SpecFlag_HolyPower" 
+							inherits="UICheckButtonTemplate">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="$parent_SCD_UseCooldown" relativePoint="BOTTOMLEFT">
+					<Anchor point="TOPLEFT" 
+							relativeTo="EA_Icon_Options_Frame" 
+							relativePoint="BOTTOMLEFT">
+					<!-- <Anchor point="TOPLEFT" relativeTo="$parent_SCD_UseCooldown" relativePoint="BOTTOMLEFT"> -->
 						<Offset>
-							<AbsDimension x="0" y="0" />
+							<AbsDimension x="20" y="290" />
 						</Offset>
 					</Anchor>
 				</Anchors>
@@ -328,9 +360,14 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="$parent_SpecFlag_RunicPower" inherits="OptionsCheckButtonTemplate">
+			
+			<!--啟用停用符能提示 -->
+			<CheckButton 	name="$parent_SpecFlag_RunicPower" 
+							inherits="UICheckButtonTemplate">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="$parent_SpecFlag_HolyPower" relativePoint="TOPRIGHT">
+					<Anchor point="TOPLEFT" 
+							relativeTo="$parent_SpecFlag_HolyPower" 
+							relativePoint="TOPRIGHT">
 						<Offset>
 							<AbsDimension x="100" y="0" />
 						</Offset>
@@ -354,9 +391,14 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="$parent_SpecFlag_SoulShards" inherits="OptionsCheckButtonTemplate">
+			
+			<!--啟用停用靈魂碎片提示 -->
+			<CheckButton 	name="$parent_SpecFlag_SoulShards" 
+							inherits="UICheckButtonTemplate">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="$parent_SpecFlag_HolyPower" relativePoint="BOTTOMLEFT">
+					<Anchor point="TOPLEFT" 
+							relativeTo="$parent_SpecFlag_HolyPower" 
+							relativePoint="BOTTOMLEFT">
 						<Offset>
 							<AbsDimension x="0" y="0" />
 						</Offset>
@@ -380,9 +422,14 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="$parent_SpecFlag_LunarPower" inherits="OptionsCheckButtonTemplate">
+			
+			<!--啟用停用星能提示 -->
+			<CheckButton 	name="$parent_SpecFlag_LunarPower" 
+							inherits="UICheckButtonTemplate">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="$parent_SpecFlag_SoulShards" relativePoint="TOPRIGHT">
+					<Anchor point="TOPLEFT" 
+							relativeTo="$parent_SpecFlag_SoulShards" 
+							relativePoint="TOPRIGHT">
 						<Offset>
 							<AbsDimension x="100" y="0" />
 						</Offset>
@@ -405,35 +452,49 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="$parent_SpecFlag_ComboPoints" inherits="OptionsCheckButtonTemplate">
+			
+			<!--啟用停用連擊點數提示 -->
+			<CheckButton 	name="$parent_SpecFlag_ComboPoints" 
+							inherits="UICheckButtonTemplate">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="$parent_SpecFlag_SoulShards" relativePoint="BOTTOMLEFT">
+					<Anchor point="TOPLEFT" 
+							relativeTo="$parent_SpecFlag_SoulShards" 
+							relativePoint="BOTTOMLEFT">
 						<Offset>
 							<AbsDimension x="0" y="0" />
 						</Offset>
 					</Anchor>
 				</Anchors>
 				<Scripts>
+					
 					<OnLoad>
 						_G[self:GetName().."Text"]:SetText(EA_SPELL_POWER_NAME.ComboPoints)
 					</OnLoad>
-					<OnClick>
-						
+					
+					<OnClick>   						
 						EA_Config.SpecPowerCheck.ComboPoints = self:GetChecked()						
 						EventAlert_SpecialFrame_Update()
 					</OnClick>
+					
 					<OnEnter>
 						GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 						GameTooltip:SetText(EA_TTIP_SPECFLAG_CHECK.ComboPoints)
 					</OnEnter>
+					
 					<OnLeave>
 						GameTooltip:Hide()
 					</OnLeave>
+					
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="$parent_SpecFlag_LifeBloom" inherits="OptionsCheckButtonTemplate">
+			
+			<!--啟用停用生命之花提示 -->
+			<CheckButton 	name="$parent_SpecFlag_LifeBloom" 
+							inherits="UICheckButtonTemplate">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="$parent_SpecFlag_ComboPoints" relativePoint="TOPRIGHT">
+					<Anchor point="TOPLEFT" 
+							relativeTo="$parent_SpecFlag_ComboPoints" 
+							relativePoint="TOPRIGHT">
 						<Offset>
 							<AbsDimension x="100" y="0" />
 						</Offset>
@@ -457,9 +518,14 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="$parent_SpecFlag_Chi" inherits="OptionsCheckButtonTemplate">
+			
+			<!--啟用停用真氣提示 -->
+			<CheckButton 	name="$parent_SpecFlag_Chi" 
+							inherits="UICheckButtonTemplate">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="$parent_SpecFlag_ComboPoints" relativePoint="BOTTOMLEFT">
+					<Anchor point="TOPLEFT" 
+							relativeTo="$parent_SpecFlag_ComboPoints" 
+							relativePoint="BOTTOMLEFT">
 						<Offset>
 							<AbsDimension x="0" y="0" />
 						</Offset>
@@ -469,8 +535,7 @@
 					<OnLoad>
 						_G[self:GetName().."Text"]:SetText(EA_SPELL_POWER_NAME.Chi)
 					</OnLoad>
-					<OnClick>
-						
+					<OnClick>       						
 						EA_Config.SpecPowerCheck.Chi = self:GetChecked()
 						EventAlert_SpecialFrame_Update()
 					</OnClick>
@@ -483,9 +548,14 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="$parent_SpecFlag_Energy" inherits="OptionsCheckButtonTemplate">
+			
+			<!--啟用停用能量提示 -->
+			<CheckButton 	name="$parent_SpecFlag_Energy" 
+							inherits="UICheckButtonTemplate">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="$parent_SpecFlag_Chi" relativePoint="TOPRIGHT">
+					<Anchor point="TOPLEFT" 
+							relativeTo="$parent_SpecFlag_Chi" 
+							relativePoint="TOPRIGHT">
 						<Offset>
 							<AbsDimension x="100" y="0" />
 						</Offset>
@@ -508,9 +578,14 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="$parent_SpecFlag_Rage" inherits="OptionsCheckButtonTemplate">
+			
+			<!--啟用停用怒氣提示 -->
+			<CheckButton 	name="$parent_SpecFlag_Rage" 
+							inherits="UICheckButtonTemplate">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="$parent_SpecFlag_Chi" relativePoint="BOTTOMLEFT">
+					<Anchor point="TOPLEFT" 
+							relativeTo="$parent_SpecFlag_Chi" 
+							relativePoint="BOTTOMLEFT">
 						<Offset>
 							<AbsDimension x="0" y="0" />
 						</Offset>
@@ -520,8 +595,7 @@
 					<OnLoad>
 						_G[self:GetName().."Text"]:SetText(EA_SPELL_POWER_NAME.Rage)
 					</OnLoad>
-					<OnClick>
-						
+					<OnClick>   						
 						EA_Config.SpecPowerCheck.Rage = self:GetChecked()
 						EventAlert_SpecialFrame_Update()
 					</OnClick>
@@ -534,9 +608,14 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="$parent_SpecFlag_Focus" inherits="OptionsCheckButtonTemplate">
+			
+			<!--啟用停用獵人集中值提示 -->
+			<CheckButton 	name="$parent_SpecFlag_Focus" 
+							inherits="UICheckButtonTemplate">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="$parent_SpecFlag_Rage" relativePoint="TOPRIGHT">
+					<Anchor point="TOPLEFT" 
+							relativeTo="$parent_SpecFlag_Rage" 
+							relativePoint="TOPRIGHT">
 						<Offset>
 							<AbsDimension x="100" y="0" />
 						</Offset>
@@ -561,9 +640,14 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="$parent_SpecFlag_Insanity" inherits="OptionsCheckButtonTemplate">
+			
+			<!--啟用停用瘋狂值提示 -->
+			<CheckButton	name="$parent_SpecFlag_Insanity" 
+							inherits="UICheckButtonTemplate">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="$parent_SpecFlag_Rage" relativePoint="BOTTOMLEFT">
+					<Anchor point="TOPLEFT" 
+							relativeTo="$parent_SpecFlag_Rage" 
+							relativePoint="BOTTOMLEFT">
 						<Offset>
 							<AbsDimension x="0" y="0" />
 						</Offset>
@@ -587,9 +671,14 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="$parent_SpecFlag_ArcaneCharges" inherits="OptionsCheckButtonTemplate">
+			
+			<!--啟用停用秘法衝擊提示 -->
+			<CheckButton 	name="$parent_SpecFlag_ArcaneCharges" 
+							inherits="UICheckButtonTemplate">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="$parent_SpecFlag_Insanity" relativePoint="TOPRIGHT">
+					<Anchor point="TOPLEFT" 
+							relativeTo="$parent_SpecFlag_Insanity" 
+							relativePoint="TOPRIGHT">
 						<Offset>
 							<AbsDimension x="100" y="0" />
 						</Offset>
@@ -613,9 +702,14 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="$parent_SpecFlag_Maelstrom" inherits="OptionsCheckButtonTemplate">
+			
+			<!--啟用停用元能提示 -->
+			<CheckButton	 name="$parent_SpecFlag_Maelstrom" 
+							inherits="UICheckButtonTemplate">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="$parent_SpecFlag_Insanity" relativePoint="BOTTOMLEFT">
+					<Anchor point="TOPLEFT" 
+							relativeTo="$parent_SpecFlag_Insanity" 
+							relativePoint="BOTTOMLEFT">
 						<Offset>
 							<AbsDimension x="0" y="0" />
 						</Offset>
@@ -625,10 +719,8 @@
 					<OnLoad>
 						_G[self:GetName().."Text"]:SetText(EA_SPELL_POWER_NAME.Maelstrom)
 					</OnLoad>
-					<OnClick>
-						
-						EA_Config.SpecPowerCheck.Maelstrom  = self:GetChecked()
-						
+					<OnClick>						
+						EA_Config.SpecPowerCheck.Maelstrom  = self:GetChecked()						
 						EventAlert_SpecialFrame_Update()
 					</OnClick>
 					<OnEnter>
@@ -640,9 +732,14 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="$parent_SpecFlag_Runes" inherits="OptionsCheckButtonTemplate">
+			
+			<!--啟用停用符文提示 -->
+			<CheckButton 	name="$parent_SpecFlag_Runes" 
+							inherits="UICheckButtonTemplate">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="$parent_SpecFlag_Maelstrom" relativePoint="TOPRIGHT">
+					<Anchor point="TOPLEFT" 
+							relativeTo="$parent_SpecFlag_Maelstrom" 
+							relativePoint="TOPRIGHT">
 						<Offset>
 							<AbsDimension x="100" y="0" />
 						</Offset>
@@ -666,9 +763,14 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="$parent_SpecFlag_Fury" inherits="OptionsCheckButtonTemplate">
+			
+			<!--啟用停用魔怒提示 -->
+			<CheckButton 	name="$parent_SpecFlag_Fury" 
+							inherits="UICheckButtonTemplate">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="$parent_SpecFlag_RunicPower" relativePoint="TOPRIGHT">
+					<Anchor point="TOPLEFT" 
+							relativeTo="$parent_SpecFlag_RunicPower" 
+							relativePoint="TOPRIGHT">
 						<Offset>
 							<AbsDimension x="100" y="0" />
 						</Offset>
@@ -678,8 +780,7 @@
 					<OnLoad>
 						_G[self:GetName().."Text"]:SetText(EA_SPELL_POWER_NAME.Fury)
 					</OnLoad>
-					<OnClick>
-						
+					<OnClick>      						
 						EA_Config.SpecPowerCheck.Fury = self:GetChecked()						
 						EventAlert_SpecialFrame_Update()
 					</OnClick>
@@ -692,35 +793,44 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-				<CheckButton name="$parent_SpecFlag_Mana" inherits="OptionsCheckButtonTemplate">
-					<Anchors>
-						<Anchor point="TOPLEFT" relativeTo="$parent_SpecFlag_Fury" relativePoint="BOTTOMLEFT">
-							<Offset>
-								<AbsDimension x="0" y="0" />
-							</Offset>
-						</Anchor>
-					</Anchors>
-					<Scripts>
-						<OnLoad>
-							_G[self:GetName().."Text"]:SetText(EA_SPELL_POWER_NAME.Mana)
-						</OnLoad>
-						<OnClick>
-							
+			
+			<!--啟用停用法力值提示 -->
+			<CheckButton 	name="$parent_SpecFlag_Mana" 
+							inherits="UICheckButtonTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" 
+							relativeTo="$parent_SpecFlag_Fury" 
+							relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="0" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						_G[self:GetName().."Text"]:SetText(EA_SPELL_POWER_NAME.Mana)
+					</OnLoad>
+					<OnClick>					
 							EA_Config.SpecPowerCheck.Mana = self:GetChecked()						
 							EventAlert_SpecialFrame_Update()
-						</OnClick>
-						<OnEnter>
-							GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-							GameTooltip:SetText(EA_TTIP_SPECFLAG_CHECK.Mana)
-						</OnEnter>
-						<OnLeave>
-							GameTooltip:Hide()
-						</OnLeave>
-					</Scripts>
-				</CheckButton>
-			<CheckButton name="$parent_SpecFlag_Happiness" inherits="OptionsCheckButtonTemplate">
+					</OnClick>
+					<OnEnter>
+						GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+						GameTooltip:SetText(EA_TTIP_SPECFLAG_CHECK.Mana)
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide()
+					</OnLeave>
+				</Scripts>
+			</CheckButton>
+					
+			<!--啟用停用快樂值提示 -->
+			<CheckButton 	name="$parent_SpecFlag_Happiness" 
+							inherits="UICheckButtonTemplate">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="$parent_SpecFlag_Mana" relativePoint="BOTTOMLEFT">
+					<Anchor point="TOPLEFT" 
+							relativeTo="$parent_SpecFlag_Mana" 
+							relativePoint="BOTTOMLEFT">
 						<Offset>
 							<AbsDimension x="0" y="0" />
 						</Offset>
@@ -743,9 +853,14 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="$parent_SpecFlag_FocusPet" inherits="OptionsCheckButtonTemplate">
+			
+			<!--啟用停用"寵物集中值("Pet Focus)提示 -->
+			<CheckButton 	name="$parent_SpecFlag_FocusPet" 
+							inherits="UICheckButtonTemplate">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="$parent_SpecFlag_Happiness" relativePoint="BOTTOMLEFT">
+					<Anchor point="TOPLEFT" 
+							relativeTo="$parent_SpecFlag_Happiness" 
+							relativePoint="BOTTOMLEFT">
 						<Offset>
 							<AbsDimension x="0" y="0" />
 						</Offset>
@@ -769,7 +884,68 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-			<Button name="$parent_ToggleAlertFrame" inherits="OptionsButtonTemplate" text="">
+			
+			<!--啟用停用"龍能"(Essence)提示 -->
+			<CheckButton	name="$parent_SpecFlag_Essence" 
+							inherits="UICheckButtonTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" 
+							relativeTo="$parent_SpecFlag_FocusPet" 
+							relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="0" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						_G[self:GetName().."Text"]:SetText(EA_SPELL_POWER_NAME.Essence)						
+					</OnLoad>
+					<OnClick>						
+						EA_Config.SpecPowerCheck.Essence = self:GetChecked()						
+						EventAlert_SpecialFrame_Update()							
+					</OnClick>
+					<OnEnter>
+						GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+						GameTooltip:SetText(EA_TTIP_SPECFLAG_CHECK.Essence)
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide()
+					</OnLeave>
+				</Scripts>
+			</CheckButton>
+
+			<!--啟用停用"活力"(Vigor)提示 -->
+			<CheckButton	name="$parent_SpecFlag_Vigor" 
+							inherits="UICheckButtonTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" 
+							relativeTo="$parent_SpecFlag_Essence" 
+							relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="0" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						_G[self:GetName().."Text"]:SetText(EA_SPELL_POWER_NAME.Vigor)						
+					</OnLoad>
+					<OnClick>						
+						EA_Config.SpecPowerCheck.Vigor = self:GetChecked()						
+						EventAlert_SpecialFrame_Update()							
+					</OnClick>
+					<OnEnter>
+						GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+						GameTooltip:SetText(EA_TTIP_SPECFLAG_CHECK.Vigor)
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide()
+					</OnLeave>
+				</Scripts>
+			</CheckButton>
+			
+			<Button name="$parent_ToggleAlertFrame" inherits="UIPanelButtonTemplate" text="">
 				<Size>
 					<AbsDimension x="175" y="21" />
 				</Size>
@@ -790,7 +966,8 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			<Button name="$parent_ResetAlertPosition" inherits="OptionsButtonTemplate" text="">
+			
+			<Button name="$parent_ResetAlertPosition" inherits="UIPanelButtonTemplate" text="">
 				<Size>
 					<AbsDimension x="150" y="21" />
 				</Size>
@@ -811,6 +988,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
+			
 		</Frames>
 		<Layers>
 			<Layer>

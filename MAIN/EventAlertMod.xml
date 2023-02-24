@@ -1,4 +1,6 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+<Ui xmlns="http://www.blizzard.com/wow/ui/" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
 	
 	<Script file="EventAlert_LoadDefault.lua" />
 	<Script file="EventAlert_InitVar.lua" />	
@@ -8,7 +10,12 @@
 	<Script file="EventAlert_Animation.lua" />			
 	<Script file="EventAlertMod.lua" />		
 	
-	<Frame visible="true" name="EA_Main_Frame" parent="UIParent" toplevel="true" frameStrata="LOW" enableKeyboard="true">
+	<!-- <Frame visible="true" name="EA_Main_Frame" parent="UIParent" toplevel="true" frameStrata="LOW" enableKeyboard="true"> -->
+	<Frame 	name="EA_Main_Frame" 
+			parent="UIParent" 
+			toplevel="true" 
+			frameStrata="LOW" 
+			enableKeyboard="true">
 		<Size>
 			<AbsDimension x="1" y="1" />
 		</Size>
@@ -29,21 +36,29 @@
 			</OnKeyDown>
 		</Scripts>
 	</Frame>
-	<Frame name="EA_Version_Frame" hidden="true" parent="UIParent" movable="true" frameStrata="MEDIUM">
+	<Frame 	name="EA_Version_Frame" 
+			hidden="true" 
+			parent="UIParent" 
+			movable="true" 
+			frameStrata="MEDIUM">
 		<Size>
 			<AbsDimension x="400" y="350" />
 		</Size>
 		<Anchors>
-			<Anchor relativepoint="CENTER" point="CENTER" />
+			<Anchor relativepoint="CENTER" 
+					point="CENTER" />
 		</Anchors>
 		
 		<Frames>
-			<Button name="$parent_Okay" inherits="OptionsButtonTemplate" text="Okay">
+			<Button name="$parent_Okay" 
+					inherits="UIPanelButtonTemplate" 
+					text="Okay">
 				<Size>
 					<AbsDimension x="75" y="21" />
 				</Size>
 				<Anchors>
-					<Anchor relativepoint="BOTTOM" point="CENTER">
+					<Anchor relativepoint="BOTTOM" 
+							point="CENTER">
 						<Offset>
 							<AbsDimension x="0" y="25" />
 						</Offset>
@@ -59,7 +74,8 @@
 		</Frames>
 		<Layers>
 			<Layer>
-				<Texture name="$parent_Header" file="Interface/DialogFrame/UI-DialogBox-Header">
+				<Texture 	name="$parent_Header" 
+							file="Interface/DialogFrame/UI-DialogBox-Header">
 					<Size>
 						<AbsDimension x="400" y="64" />
 					</Size>
@@ -71,9 +87,12 @@
 						</Anchor>
 					</Anchors>
 				</Texture>
-				<FontString name="$parent_HeaderText" inherits="GameFontNormal" text="New EventAlertMod Version!">
+				<FontString name="$parent_HeaderText" 
+							inherits="GameFontNormal" 
+							text="New EventAlertMod Version!">
 					<Anchors>
-						<Anchor point="TOP" relativeTo="$parent_Header">
+						<Anchor point="TOP" 
+								relativeTo="$parent_Header">
 							<Offset>
 								<AbsDimension x="0" y="-14" />
 							</Offset>
@@ -95,7 +114,9 @@
 			</OnMouseUp>
 		</Scripts>
 	</Frame>
-	<FontString name="FontString1" inherits="GameFontNormal" text="FontString1">
+	<FontString name="FontString1" 
+				inherits="GameFontNormal" 
+				text="FontString1">
 	
 		<Size>
 			<AbsDimension x="80" y="20" />

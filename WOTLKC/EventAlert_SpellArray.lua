@@ -1,11 +1,14 @@
-﻿local addonName,addon = ... 
-_G[addonName] = _G[addonName] or addon
-
-if LibDebug then LibDebug() end
--- Prevent tainting global _.
+﻿----------------------------------------------------
+-- Assign addon space to local G var.  
+-- For sync addon space to each lua fils
+-----------------------------------------------------
 local _
 local _G = _G
-
+local addonName, G = ... 
+_G[addonName] = _G[addonName] or G
+-----------------------------------
+if LibDebug then LibDebug() end
+-----------------------------------
 
 local function CopyTable(SrcTable)
 	local TarTable = {}
@@ -2463,6 +2466,45 @@ function EventAlert_LoadSpellArray()
 			[204596] = {enable=true},				--
 			[207684] = {enable=true},				--
 			[218256] = {enable=true},				--
+			
+		},
+	-- GroupEvent Alert / 本職業條件技能區
+		["GRPITEMS"] = {
+		},
+	}
+--------------------------------------------------------------------------------
+-- Evoker / 喚能師
+--------------------------------------------------------------------------------
+	EADef_Items[EA_CLASS_EVOKER]	= {
+	-- Primary Alert / 本職業提醒區
+		["ITEMS"] = {
+		
+		},
+		-- Alternate Alert / 本職業額外提醒區
+		["ALTITEMS"] = {
+		},
+		-- Target Alert / 目標提醒區
+		["TARITEMS"] = {						
+		},
+	-- Spell Cooldown Alert / 本職業技能CD區
+		["SCDITEMS"] = {
+			[356995] = {enable=true},				--
+			[361469] = {enable=true},				--
+			[364342] = {enable=true},				--
+			[370452] = {enable=true},				--
+			[359073] = {enable=true},				--
+			[368847] = {enable=true},				--
+			[375087] = {enable=true},				--
+			[357221] = {enable=true},				--
+			[355936] = {enable=true},				--
+			[359816] = {enable=true},				--
+			[363534] = {enable=true},				--
+			[373861] = {enable=true},				--
+			[357170] = {enable=true},				--
+			[366155] = {enable=true},				--
+			[367226] = {enable=true},				--
+			[370537] = {enable=true},				--
+			[360823] = {enable=true},				--
 			
 		},
 	-- GroupEvent Alert / 本職業條件技能區

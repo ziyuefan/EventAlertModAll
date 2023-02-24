@@ -1,23 +1,25 @@
-local addonName,addon = ... 
-_G[addonName] = _G[addonName] or addon
-
-if LibDebug then LibDebug() end
--- Prevent tainting global _.
+----------------------------------------------------
+-- Assign addon space to local G var.  
+-- For sync addon space to each lua fils
+-----------------------------------------------------
 local _
 local _G = _G
-
-
+local addonName, G = ... 
+_G[addonName] = _G[addonName] or G
+-----------------------------------
+if LibDebug then LibDebug() end
+-----------------------------------
 function EventAlert_Icon_Options_Frame_OnLoad()
 	-- UIPanelWindows["EA_Icon_Options_Frame"] = {area = "center", pushable = 0}
-	Lib_ZYF:SetBackdrop(EA_Icon_Options_Frame,{bgFile="interface/dialogframe/ui-dialogbox-gold-background", 
+	Lib_ZYF:SetBackdrop(EA_Icon_Options_Frame, {bgFile="interface/dialogframe/ui-dialogbox-gold-background", 
 											   edgeFile="interface/dialogframe/ui-dialogbox-gold-border", 
 											   tile = true, 	
 											   tileSize = 32, 
 											   edgeSize = 32, 
 											   insets = { left = 11, right = 12, top = 11, bottom = 11, },
 											  })
-	Lib_ZYF:SetBackdropColor(EA_Icon_Options_Frame,1,1,1,2/1)
-	Lib_ZYF:SetBackdropBorderColor(EA_Icon_Options_Frame,1,1,1,1)
+	-- Lib_ZYF:SetBackdropColor(EA_Icon_Options_Frame, 1, 1, 1, 2/1)
+	-- Lib_ZYF:SetBackdropBorderColor(EA_Icon_Options_Frame, 1, 1, 1, 1)
 end
 
 function EventAlert_Icon_Options_Frame_Init()
@@ -52,6 +54,8 @@ function EventAlert_Icon_Options_Frame_Init()
 	EA_Icon_Options_Frame_SpecFlag_Happiness:SetChecked(EA_Config.SpecPowerCheck.Happiness)
 	-- EA_Icon_Options_Frame_SpecFlag_Pain:SetChecked(EA_Config.SpecPowerCheck.Pain)
 	EA_Icon_Options_Frame_SpecFlag_FocusPet:SetChecked(EA_Config.SpecPowerCheck.FocusPet)
+	EA_Icon_Options_Frame_SpecFlag_Essence:SetChecked(EA_Config.SpecPowerCheck.Essence)
+	EA_Icon_Options_Frame_SpecFlag_Vigor:SetChecked(EA_Config.SpecPowerCheck.Vigor)
 end
 
 function EventAlert_Icon_Options_Frame_ToggleAlertFrame()
@@ -182,108 +186,198 @@ function EventAlert_Icon_Options_Frame_PaintAlertFrame()
 		end
 	end
 
+	--支援聖騎聖能
 	if (EA_playerClass == EA_CLASS_PALADIN) then
+		-- Paladin Holy Power
 		if (EA_Config.SpecPowerCheck.HolyPower) then
-			EventAlert_Icon_Options_Frame_SetAlertFrameText(EAFrameSpec_10090, "", false)  -- Paladin Holy Power
+			EventAlert_Icon_Options_Frame_SetAlertFrameText(_G["EAFrameSpec_"..(1000000 + 10 * Enum.PowerType.HolyPower)], "", false)  
+		end		
+		-- Paladin Mana
+		if (EA_Config.SpecPowerCheck.Mana) then
+			EventAlert_Icon_Options_Frame_SetAlertFrameText(_G["EAFrameSpec_"..(1000000 + 10 * Enum.PowerType.Mana)], "", false)			
 		end
+		
+	--支援DK符文及符能
 	elseif (EA_playerClass == EA_CLASS_DK) then
+		-- Death Knight Runic
 		if (EA_Config.SpecPowerCheck.RunicPower) then
-			EventAlert_Icon_Options_Frame_SetAlertFrameText(EAFrameSpec_10060, "", false)  -- Death Knight Runic
+			EventAlert_Icon_Options_Frame_SetAlertFrameText(_G["EAFrameSpec_"..(1000000 + 10 * Enum.PowerType.RunicPower)], "", false)
 		end
+		-- Death Knight Runes
 		if (EA_Config.SpecPowerCheck.Runes) then
-			--EventAlert_Icon_Options_Frame_SetAlertFrameText(EAFrameSpec_10050, "", false)  -- Death Knight Runes
+			-- EventAlert_Icon_Options_Frame_SetAlertFrameText(_G["EAFrameSpec_"..(1000000 + 10 * Enum.PowerType.Runes)], "", false)
 		end
+		
+	-- 支援德魯伊連擊點數、怒氣、能量、星能、生命之花
 	elseif (EA_playerClass == EA_CLASS_DRUID) then
-		if (EA_Config.SpecPowerCheck.ComboPoints) then
-			EventAlert_Icon_Options_Frame_SetAlertFrameText(EAFrameSpec_10000, "", false)  -- Druid Combo Point
-		end
-		if (EA_Config.SpecPowerCheck.Energy) then
-			EventAlert_Icon_Options_Frame_SetAlertFrameText(EAFrameSpec_10030, "", false)  -- Druid Energy
-		end
-		if (EA_Config.SpecPowerCheck.Rage) then
-			EventAlert_Icon_Options_Frame_SetAlertFrameText(EAFrameSpec_10010, "", false)  -- Druid Rage
-		end
-		if (EA_Config.SpecPowerCheck.LunarPower) then
-			EventAlert_Icon_Options_Frame_SetAlertFrameText(EAFrameSpec_10081, "", false)  -- Durid Eclipse
-			EventAlert_Icon_Options_Frame_SetAlertFrameText(EAFrameSpec_10082, "", false)  -- Durid Eclipse Orange
-		end
-		if (EA_Config.SpecPowerCheck.LifeBloom) then
-			EventAlert_Icon_Options_Frame_SetAlertFrameText(EAFrameSpec_33763, "", false)  -- Druid LifeBloom
-		end
-	elseif (EA_playerClass == EA_CLASS_ROGUE) then
-		if (EA_Config.SpecPowerCheck.ComboPoints) then
-			EventAlert_Icon_Options_Frame_SetAlertFrameText(EAFrameSpec_10000, "", false)  -- Rogue Combo Point
-		end
-		if (EA_Config.SpecPowerCheck.Energy) then
-			EventAlert_Icon_Options_Frame_SetAlertFrameText(EAFrameSpec_10030, "", false)  -- Rogue Energy
-		end
-	elseif (EA_playerClass == EA_CLASS_WARLOCK) then -- 支援三系術士
-		if (EA_Config.SpecPowerCheck.SoulShards) then
-			EventAlert_Icon_Options_Frame_SetAlertFrameText(EAFrameSpec_10070, "", false)  -- Warlock Soul Shards
-		elseif (EA_Config.SpecPowerCheck.BurningEmbers) then
-			EventAlert_Icon_Options_Frame_SetAlertFrameText(EAFrameSpec_10140, "", false)  -- Warlock Burning Embers
-		elseif (EA_Config.SpecPowerCheck.DemonicFury) then
-			EventAlert_Icon_Options_Frame_SetAlertFrameText(EAFrameSpec_10150, "", false)  -- Warlock Demonic Fury
-		end
-	elseif (EA_playerClass == EA_CLASS_MONK) then	--  支援武僧真氣
-		if (EA_Config.SpecPowerCheck.Chi) then
-			EventAlert_Icon_Options_Frame_SetAlertFrameText(EAFrameSpec_10120, "", false)  -- Monk Light Force (Chi)
-		end
-	elseif (EA_playerClass == EA_CLASS_PRIEST) then	--  支援暗牧暗影寶珠(瘋狂)
-		if (EA_Config.SpecPowerCheck.Insanity) then
-			EventAlert_Icon_Options_Frame_SetAlertFrameText(EAFrameSpec_10130, "", false)  -- Shadwo Priest Insanity
-		end
-	elseif (EA_playerClass == EA_CLASS_WARRIOR) then --  支援戰士怒氣
-		if (EA_Config.SpecPowerCheck.Rage) then
-			EventAlert_Icon_Options_Frame_SetAlertFrameText(EAFrameSpec_10010, "", false)  -- Warrior Rage
-		end
 	
-	elseif (EA_playerClass == EA_CLASS_HUNTER) then --  支援獵人集中值
+		-- Druid Mana
+		if (EA_Config.SpecPowerCheck.Mana) then
+			EventAlert_Icon_Options_Frame_SetAlertFrameText(_G["EAFrameSpec_"..(1000000 + 10 * Enum.PowerType.Mana)], "", false)			
+		end
+		
+		-- Druid Combo Point
+		if (EA_Config.SpecPowerCheck.ComboPoints) then
+			EventAlert_Icon_Options_Frame_SetAlertFrameText(_G["EAFrameSpec_"..(1000000 + 10 * Enum.PowerType.ComboPoints)], "", false)
+		end
+		
+		-- Druid Energy
+		if (EA_Config.SpecPowerCheck.Energy) then
+			EventAlert_Icon_Options_Frame_SetAlertFrameText(_G["EAFrameSpec_"..(1000000 + 10 * Enum.PowerType.Energy)], "", false)
+		end
+		
+		-- Druid Rage
+		if (EA_Config.SpecPowerCheck.Rage) then
+			EventAlert_Icon_Options_Frame_SetAlertFrameText(_G["EAFrameSpec_"..(1000000 + 10 * Enum.PowerType.Rage)], "", false)
+		end
+		
+		-- Druid Lunar Power
+		if (EA_Config.SpecPowerCheck.LunarPower) then
+			EventAlert_Icon_Options_Frame_SetAlertFrameText(_G["EAFrameSpec_"..(1000000 + 10 * Enum.PowerType.LunarPower)], "", false)
+			-- Durid Eclipse
+			-- EventAlert_Icon_Options_Frame_SetAlertFrameText(EAFrameSpec_10081, "", false)  
+			-- Durid Eclipse Orange
+			-- EventAlert_Icon_Options_Frame_SetAlertFrameText(EAFrameSpec_10082, "", false)                                          			
+		end
+		
+		-- Druid LifeBloom
+		if (EA_Config.SpecPowerCheck.LifeBloom) then
+			EventAlert_Icon_Options_Frame_SetAlertFrameText(EAFrameSpec_33763, "", false)  
+		end
+		
+		-- 支援活力值Vigor
+		if EA_Config.SpecPowerCheck.Vigor then
+			EventAlert_Icon_Options_Frame_SetAlertFrameText(EAFrameSpec_Vigor, "", false)  
+		end
+		
+	-- 支援盜賊能量及連擊點數
+	elseif (EA_playerClass == EA_CLASS_ROGUE) then
+		-- Rogue Combo Points
+		if (EA_Config.SpecPowerCheck.ComboPoints) then
+			EventAlert_Icon_Options_Frame_SetAlertFrameText(_G["EAFrameSpec_"..(1000000 + 10 * Enum.PowerType.ComboPoints)], "", false)
+		end
+		
+		-- Rogue Energy
+		if (EA_Config.SpecPowerCheck.Energy) then
+			EventAlert_Icon_Options_Frame_SetAlertFrameText(_G["EAFrameSpec_"..(1000000 + 10 * Enum.PowerType.Energy)], "", false)
+		end
+		
+	-- 支援三系術士
+	elseif (EA_playerClass == EA_CLASS_WARLOCK) then 
+		-- Warlock Soul Shards
+		if (EA_Config.SpecPowerCheck.SoulShards) then
+			EventAlert_Icon_Options_Frame_SetAlertFrameText(_G["EAFrameSpec_"..(1000000 + 10 * Enum.PowerType.SoulShards)], "", false)
+		end
+			
+		-- Warlock Burning Embers
+		if (EA_Config.SpecPowerCheck.BurningEmbers) then
+			EventAlert_Icon_Options_Frame_SetAlertFrameText(_G["EAFrameSpec_"..(1000000 + 10 * Enum.PowerType.BurningEmbers)], "", false)
+		end
+			
+		-- Warlock Demonic Fury
+		if (EA_Config.SpecPowerCheck.DemonicFury) then
+			EventAlert_Icon_Options_Frame_SetAlertFrameText(_G["EAFrameSpec_"..(1000000 + 10 * Enum.PowerType.DemonicFury)], "", false)			
+		end
+		
+	--  支援武僧真氣
+	elseif (EA_playerClass == EA_CLASS_MONK) then
+		-- Monk Light Force (Chi)
+		if (EA_Config.SpecPowerCheck.Chi) then
+			EventAlert_Icon_Options_Frame_SetAlertFrameText(_G["EAFrameSpec_"..(1000000 + 10 * Enum.PowerType.Chi)], "", false)			
+		end
+		
+		-- Monk Mana
+		if (EA_Config.SpecPowerCheck.Mana) then
+			EventAlert_Icon_Options_Frame_SetAlertFrameText(_G["EAFrameSpec_"..(1000000 + 10 * Enum.PowerType.Mana)], "", false)			
+		end
+		
+	--  支援暗牧暗影寶珠(瘋狂)
+	elseif (EA_playerClass == EA_CLASS_PRIEST) then	
+		-- Shadwo Priest Insanity
+		if (EA_Config.SpecPowerCheck.Insanity) then		
+			EventAlert_Icon_Options_Frame_SetAlertFrameText(_G["EAFrameSpec_"..(1000000 + 10 * Enum.PowerType.Insanity)], "", false)			
+		end
+		
+		-- Shadwo Priest Mana
+		if (EA_Config.SpecPowerCheck.Mana) then
+			EventAlert_Icon_Options_Frame_SetAlertFrameText(_G["EAFrameSpec_"..(1000000 + 10 * Enum.PowerType.Mana)], "", false)			
+		end
+		
+		
+	--  支援戰士怒氣
+	elseif (EA_playerClass == EA_CLASS_WARRIOR) then 
+		-- Warrior Rage
+		if (EA_Config.SpecPowerCheck.Rage) then
+			EventAlert_Icon_Options_Frame_SetAlertFrameText(_G["EAFrameSpec_"..(1000000 + 10 * Enum.PowerType.Rage)], "", false)			
+		end		
+	
+	--  支援獵人集中值
+	elseif (EA_playerClass == EA_CLASS_HUNTER) then 
+		-- Hunter Focus
 		if (EA_Config.SpecPowerCheck.Focus) then
-			EventAlert_Icon_Options_Frame_SetAlertFrameText(EAFrameSpec_10020, "", false)  -- Hunter Focus
+			EventAlert_Icon_Options_Frame_SetAlertFrameText(_G["EAFrameSpec_"..(1000000 + 10 * Enum.PowerType.Focus)], "", false)						
 		end
+		-- Hunter Pet Focus
 		if (EA_Config.SpecPowerCheck.PetFocus) then
-			EventAlert_Icon_Options_Frame_SetAlertFrameText(EAFrameSpec_10021, "", false)  -- Hunter Pet Focus
+			EventAlert_Icon_Options_Frame_SetAlertFrameText(_G["EAFrameSpec_"..(1000000 + 10 * Enum.PowerType.Focus + 1)], "", false)			
 		end
-	elseif (EA_playerClass == EA_CLASS_MAGE) then --  支援秘法充能
-		if (EA_Config.SpecPowerCheck.ArcaneCharges) then
-			EventAlert_Icon_Options_Frame_SetAlertFrameText(EAFrameSpec_10160, "", false)  -- Mage Arcane Charges
+		
+	--  支援秘法充能
+	elseif (EA_playerClass == EA_CLASS_MAGE) then 
+		-- Mage Arcane Charges
+		if (EA_Config.SpecPowerCheck.ArcaneCharges) then			
+			EventAlert_Icon_Options_Frame_SetAlertFrameText(_G["EAFrameSpec_"..(1000000 + 10 * Enum.PowerType.ArcaneCharges)], "", false)			
 		end
-	elseif (EA_playerClass == EA_CLASS_SHAMAN) then --  支援增強薩元素薩的元能(漩渦)
+		
+	--  支援增強薩元素薩的元能(漩渦)
+	elseif (EA_playerClass == EA_CLASS_SHAMAN) then 
+		-- Shaman Maelstrom
 		if (EA_Config.SpecPowerCheck.Maelstrom) then
-			EventAlert_Icon_Options_Frame_SetAlertFrameText(EAFrameSpec_10110, "", false)  -- Shaman Maelstrom
+			EventAlert_Icon_Options_Frame_SetAlertFrameText(_G["EAFrameSpec_"..(1000000 + 10 * Enum.PowerType.Maelstrom)], "", false)			
 		end
-	elseif (EA_playerClass == EA_CLASS_DEMONHUNTER) then --  支援惡魔獵人魔怒
+		
+	--  支援惡魔獵人魔怒
+	elseif (EA_playerClass == EA_CLASS_DEMONHUNTER) then 
+		-- Demonhunter Fury
 		if (EA_Config.SpecPowerCheck.Fury) then
-			EventAlert_Icon_Options_Frame_SetAlertFrameText(EAFrameSpec_10170, "", false)  -- Demonhunter Fury
+			EventAlert_Icon_Options_Frame_SetAlertFrameText(_G["EAFrameSpec_"..(1000000 + 10 * Enum.PowerType.Fury)], "", false)								
 		end
-		if (EA_Config.SpecPowerCheck.Pain) then
-			EventAlert_Icon_Options_Frame_SetAlertFrameText(EAFrameSpec_10180, "", false)  -- Demonhunter Pain
-		end
+		-- Demonhunter Pain
+		if (EA_Config.SpecPowerCheck.Pain) then			
+			-- EventAlert_Icon_Options_Frame_SetAlertFrameText(_G["EAFrameSpec_"..(1000000 + 10 * Enum.PowerType.Pain)], "", false)											
+		end	
+	
+	--  支援喚能師龍能
+	elseif (EA_playerClass == EA_CLASS_EVOKER) then 
+		-- Evoker's Essence
+		if (EA_Config.SpecPowerCheck.Essence) then
+			EventAlert_Icon_Options_Frame_SetAlertFrameText(_G["EAFrameSpec_"..(1000000 + 10 * Enum.PowerType.Essence)], "", false)										
+		end		
+		
 	end
 end
 
 
 function EventAlert_Icon_Options_Frame_AdjustTimerFontSize()
 	
-	local fontSize = EA_Config.BaseFontSize
+	-- local fontSize = EA_Config.BaseFontSize
 	
-	if (EA_Config.ChangeTimer == true) then	--若計時顯示在框架內
-		-- 若使用了小數點倒數
-		if (EA_Config.UseFloatSec > 0) then
-			EA_Config.TimerFontSize = fontSize * 0.8		--框架內倒數大小比例(有小數點)
-		else
-			EA_Config.TimerFontSize = fontSize	 			--框架內倒數大小比例(無小數點)
-		end
-		EA_Config.StackFontSize = fontSize * 1/1.5			--堆疊計數大小比例
-	else	--若計時顯示在框架外
-		EA_Config.TimerFontSize = fontSize * 1.25			--框架外倒數大小比例
-		EA_Config.StackFontSize = fontSize * 1/1.5 * 1.25	--堆疊計數大小比例
-	end
+	-- if (EA_Config.ChangeTimer == true) then	--若計時顯示在框架內
+		-- -- 若使用了小數點倒數
+		-- if (EA_Config.UseFloatSec > 0) then
+			-- EA_Config.TimerFontSize = fontSize * 0.8		--框架內倒數大小比例(有小數點)
+		-- else
+			-- EA_Config.TimerFontSize = fontSize	 			--框架內倒數大小比例(無小數點)
+		-- end
+		-- EA_Config.StackFontSize = fontSize * 1/1.5			--堆疊計數大小比例
+	-- else	--若計時顯示在框架外
+		-- EA_Config.TimerFontSize = fontSize * 1.25			--框架外倒數大小比例
+		-- EA_Config.StackFontSize = fontSize * 1/1.5 * 1.25	--堆疊計數大小比例
+	-- end
 	
 	
 	
-	EA_Config.SNameFontSize = fontSize * 1/2			--名稱大小比例
+	-- EA_Config.SNameFontSize = fontSize * 1/2			--名稱大小比例
 	--if EA_Config.SNameFontSize < 10 then EA_Config.SNameFontSize = 10 end
 
 	--EventAlert_PositionFrames()

@@ -45,7 +45,13 @@
 		<FontString inherits="GameFontNormal" />
 	</EditBox>
 
-	<EditBox name="EA_SpellEditTextTemplate" letters="6" multiLine="false" numeric="false" ignoreArrows="false" autoFocus="false" virtual="true" >
+	<EditBox 	name="EA_SpellEditTextTemplate" 
+				letters="6" 
+				multiLine="false" 
+				numeric="false" 
+				ignoreArrows="false" 
+				autoFocus="false" 
+				virtual="true" >
 		<Size>
 			<AbsDimension x="60" y="25" />
 		</Size>
@@ -89,21 +95,28 @@
 		<FontString inherits="GameFontNormal" />
 	</EditBox>
 	<!-- Options Setting Frames -->
-	<Frame name="EA_Options_Frame" hidden="true" parent="UIParent" toplevel="true" movable="true" frameStrata="MEDIUM" enableMouse="true" enableKeyboard="true">
+	<Frame 	name="EA_Options_Frame" 
+			hidden="true" 
+			parent="UIParent" 
+			toplevel="true" 
+			movable="true" 
+			frameStrata="MEDIUM" 
+			enableMouse="true" 
+			enableKeyboard="true">
 		<Size>
-			<AbsDimension x="300" y="600" />
+			<AbsDimension x="330" y="670" />
 		</Size>
 		<Anchors>
 			<Anchor point="CENTER" />
 		</Anchors>
 		
 		<Frames>
-			<Button name="$parent_ToggleIconOptions" inherits="OptionsButtonTemplate" text="">
+			<Button name="$parent_ToggleIconOptions" inherits="UIPanelButtonTemplate" text="">
 				<Size>
-					<AbsDimension x="200" y="50" />
+					<AbsDimension x="180" y="45" />
 				</Size>
 				<Anchors>
-					<Anchor point="TOP" relativeTo="$parent">
+					<Anchor point="TOP" relativeTo="$parent" relativePoint="TOP">
 						<Offset>
 							<AbsDimension x="0" y="-5" />
 						</Offset>
@@ -119,7 +132,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			<CheckButton name="$parent_ShowFrame" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="$parent_ShowFrame" inherits="UICheckButtonTemplate">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent">
 						<Offset>
@@ -147,7 +160,7 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="$parent_ShowName" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="$parent_ShowName" inherits="UICheckButtonTemplate">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent_ShowFrame" relativePoint="BOTTOMLEFT">
 						<Offset>
@@ -176,7 +189,7 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="$parent_ShowTimer" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="$parent_ShowTimer" inherits="UICheckButtonTemplate">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent_ShowName" relativePoint="BOTTOMLEFT">
 						<Offset>
@@ -205,7 +218,7 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="$parent_ChangeTimer" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="$parent_ChangeTimer" inherits="UICheckButtonTemplate">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent_ShowTimer" relativePoint="BOTTOMLEFT">
 						<Offset>
@@ -235,7 +248,7 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="$parent_ShowFlash" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="$parent_ShowFlash" inherits="UICheckButtonTemplate">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent_ShowTimer" relativePoint="BOTTOMLEFT">
 						<Offset>
@@ -263,7 +276,7 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="$parent_DoAlertSound" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="$parent_DoAlertSound" inherits="UICheckButtonTemplate">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent_ShowFlash" relativePoint="BOTTOMLEFT">
 						<Offset>
@@ -315,7 +328,7 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="$parent_AllowESC" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="$parent_AllowESC" inherits="UICheckButtonTemplate">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent_DoAlertSound" relativePoint="BOTTOMLEFT">
 						<Offset>
@@ -343,7 +356,7 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="$parent_AltAlerts" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="$parent_AltAlerts" inherits="UICheckButtonTemplate">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent_AllowESC" relativePoint="BOTTOMLEFT">
 						<Offset>
@@ -375,7 +388,7 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-			<Button name="$parent_ToggleClassEvents" inherits="OptionsButtonTemplate" text="">
+			<Button name="$parent_ToggleClassEvents" inherits="UIPanelButtonTemplate" text="">
 				<Size>
 					<AbsDimension x="180" y="21" />
 				</Size>
@@ -396,7 +409,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			<Button name="$parent_ToggleOtherEvents" inherits="OptionsButtonTemplate" text="">
+			<Button name="$parent_ToggleOtherEvents" inherits="UIPanelButtonTemplate" text="">
 				<Size>
 					<AbsDimension x="180" y="21" />
 				</Size>
@@ -417,7 +430,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			<Button name="$parent_ToggleTargetEvents" inherits="OptionsButtonTemplate" text="">
+			<Button name="$parent_ToggleTargetEvents" inherits="UIPanelButtonTemplate" text="">
 				<Size>
 					<AbsDimension x="180" y="21" />
 				</Size>
@@ -438,7 +451,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			<Button name="$parent_ToggleSCDEvents" inherits="OptionsButtonTemplate" text="">
+			<Button name="$parent_ToggleSCDEvents" inherits="UIPanelButtonTemplate" text="">
 				<Size>
 					<AbsDimension x="180" y="21" />
 				</Size>
@@ -459,7 +472,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			<Button name="$parent_ToggleGroupEvents" inherits="OptionsButtonTemplate" text="">
+			<Button name="$parent_ToggleGroupEvents" inherits="UIPanelButtonTemplate" text="">
 				<Size>
 					<AbsDimension x="180" y="21" />
 				</Size>
@@ -480,7 +493,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			<Button name="$parent_Okay" inherits="OptionsButtonTemplate" text="">
+			<Button name="$parent_Okay" inherits="UIPanelButtonTemplate" text="">
 				<Size>
 					<AbsDimension x="75" y="21" />
 				</Size>
@@ -502,7 +515,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			<Button name="$parent_VerBtn1" inherits="OptionsButtonTemplate" text="">
+			<Button name="$parent_VerBtn1" inherits="UIPanelButtonTemplate" text="">
 				<Size>
 					<AbsDimension x="75" y="21" />
 				</Size>
@@ -550,16 +563,16 @@
 					<Anchors>
 						<Anchor point="BOTTOM" relativeTo="$parent">
 							<Offset>
-								<AbsDimension x="0" y="60" />
+								<AbsDimension x="0" y="80" />
 							</Offset>
 						</Anchor>
 					</Anchors>
 				</FontString>
 				<FontString name="$parent_VersionText" inherits="GameFontNormal" text="">
 					<Anchors>
-						<Anchor point="TOPLEFT" relativeTo="$parent_VerUrlText" relativePoint="BOTTOMLEFT">
+						<Anchor point="TOP" relativeTo="$parent_VerUrlText" relativePoint="BOTTOM">
 							<Offset>
-								<AbsDimension x="0" y="0" />
+								<AbsDimension x="0" y="-10" />
 							</Offset>
 						</Anchor>
 					</Anchors>
@@ -606,7 +619,7 @@
 					</Anchor>
 				</Anchors>
 			</Frame>
-			<Button name="$parent_SpellNameText" inherits="OptionsButtonTemplate" text="">
+			<Button name="$parent_SpellNameText" inherits="UIPanelButtonTemplate" text="">
 				<Size>
 					<AbsDimension x="150" y="21" />
 				</Size>
@@ -627,7 +640,7 @@
 					</OnLeave>
 				</Scripts>
 			</Button>
-			<CheckButton name="$parent_Stack" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="$parent_Stack" inherits="UICheckButtonTemplate">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent">
 						<Offset>
@@ -698,7 +711,7 @@
 				</Scripts>
 				<FontString inherits="GameFontNormal" />
 			</EditBox>
-			<CheckButton name="$parent_Self" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="$parent_Self" inherits="UICheckButtonTemplate">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent_Stack" relativePoint="BOTTOMLEFT">
 						<Offset>
@@ -721,7 +734,7 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="$parent_OverGrow" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="$parent_OverGrow" inherits="UICheckButtonTemplate">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent_Self" relativePoint="BOTTOMLEFT">
 						<Offset>
@@ -792,7 +805,7 @@
 				</Scripts>
 				<FontString inherits="GameFontNormal" />
 			</EditBox>
-			<CheckButton name="$parent_RedSecText" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="$parent_RedSecText" inherits="UICheckButtonTemplate">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent_OverGrow" relativePoint="BOTTOMLEFT">
 						<Offset>
@@ -863,7 +876,7 @@
 				</Scripts>
 				<FontString inherits="GameFontNormal" />
 			</EditBox>
-			<CheckButton name="$parent_OrderWtd" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="$parent_OrderWtd" inherits="UICheckButtonTemplate">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent_RedSecText" relativePoint="BOTTOMLEFT">
 						<Offset>
@@ -935,7 +948,7 @@
 				<FontString inherits="GameFontNormal" />
 			</EditBox>
 
-			<Button name="$parent_Cancel" inherits="OptionsButtonTemplate" text="Cancel">
+			<Button name="$parent_Cancel" inherits="UIPanelButtonTemplate" text="Cancel">
 				<Size>
 					<AbsDimension x="75" y="21" />
 				</Size>
@@ -955,7 +968,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			<Button name="$parent_Save" inherits="OptionsButtonTemplate" text="Save">
+			<Button name="$parent_Save" inherits="UIPanelButtonTemplate" text="Save">
 				<Size>
 					<AbsDimension x="75" y="21" />
 				</Size>
@@ -1080,7 +1093,7 @@
 					</OnLeave>
 				</Scripts>
 			</Slider>
-			<CheckButton name="$parent_Talent1" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="$parent_Talent1" inherits="UICheckButtonTemplate">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent_IconAlpha" relativePoint="TOPRIGHT">
 						<Offset>
@@ -1123,7 +1136,7 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="$parent_Talent2" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="$parent_Talent2" inherits="UICheckButtonTemplate">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent_Talent1" relativePoint="BOTTOMLEFT">
 						<Offset>
@@ -1167,7 +1180,7 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="$parent_Talent3" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="$parent_Talent3" inherits="UICheckButtonTemplate">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent_Talent2" relativePoint="BOTTOMLEFT">
 						<Offset>
@@ -1216,7 +1229,7 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="$parent_Talent4" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="$parent_Talent4" inherits="UICheckButtonTemplate">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent_Talent3" relativePoint="BOTTOMLEFT">
 						<Offset>
@@ -1285,7 +1298,7 @@
 				<Scripts>
 				</Scripts>
 			</EditBox>
-			<CheckButton name="$parent_HideOnLeaveCombat" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="$parent_HideOnLeaveCombat" inherits="UICheckButtonTemplate">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent_Talent1" relativePoint="TOPRIGHT">
 						<Offset>
@@ -1308,7 +1321,7 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="$parent_HideOnLostTarget" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="$parent_HideOnLostTarget" inherits="UICheckButtonTemplate">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent_HideOnLeaveCombat" relativePoint="BOTTOMLEFT">
 						<Offset>
@@ -1333,7 +1346,7 @@
 			</CheckButton>
 			
 			<!---Glow Effect Option -->
-			<CheckButton name="$parent_GlowWhenTrue" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="$parent_GlowWhenTrue" inherits="UICheckButtonTemplate">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent_HideOnLostTarget" relativePoint="BOTTOMLEFT">
 						<Offset>
@@ -1380,7 +1393,7 @@
 				</ScrollChild>
 			</ScrollFrame>	
 
-			<Button name="EAGE_SpellsFrame_NewSpellBtn" inherits="OptionsButtonTemplate" text="EA_XGRPALERT_NEWSPELLBTN">
+			<Button name="EAGE_SpellsFrame_NewSpellBtn" inherits="UIPanelButtonTemplate" text="EA_XGRPALERT_NEWSPELLBTN">
 				<Size>
 					<AbsDimension x="150" y="20" />
 				</Size>
@@ -1400,7 +1413,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			<Button name="$parent_Cancel" inherits="OptionsButtonTemplate" text="Cancel">
+			<Button name="$parent_Cancel" inherits="UIPanelButtonTemplate" text="Cancel">
 				<Size>
 					<AbsDimension x="75" y="21" />
 				</Size>
@@ -1420,7 +1433,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			<Button name="$parent_Save" inherits="OptionsButtonTemplate" text="Save">
+			<Button name="$parent_Save" inherits="UIPanelButtonTemplate" text="Save">
 				<Size>
 					<AbsDimension x="75" y="21" />
 				</Size>

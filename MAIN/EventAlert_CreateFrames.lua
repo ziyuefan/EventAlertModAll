@@ -1,11 +1,14 @@
-local addonName,addon = ... 
-_G[addonName] = _G[addonName] or addon
-
-if LibDebug then LibDebug() end
--- Prevent tainting global _.
+-----------------------------------------------------
+-- Assign addon space to local G var.  
+-- For sync addon space to each lua fils
+-----------------------------------------------------
 local _
 local _G = _G
-
+local addonName, G = ... 
+_G[addonName] = _G[addonName] or G
+-----------------------------------
+if LibDebug then LibDebug() end
+-----------------------------------
 --常用函數設為區域變數以提昇效能
 local print = print
 local pairs = pairs
@@ -207,22 +210,25 @@ function CreateFrames_CreateSpellFrame(index, typeIndex)
 	eaf.whitesectext = false
 	eaf.overgrow = false
 
-	local fontSize = EA_Config.BaseFontSize
+	
 	eaf.spellName:SetFontObject(EA_FONT_OBJECT)
-	eaf.spellName:SetPoint("TOP", eaf, "BOTTOM", 0, -0.1 * fontSize)	
+	eaf.spellName:SetPoint("TOP", eaf, "BOTTOM", 0, -5)	
 
 	eaf.spellTimer:SetFontObject(EA_FONT_OBJECT)
-	eaf.spellTimer:SetPoint("TOP", 0, 1.1 * fontSize)
+	eaf.spellTimer:SetPoint("TOP", 0, EA_Config.TimerFontSize)
 
 	eaf.spellStack:SetFontObject(EA_FONT_OBJECT)
-	eaf.spellStack:SetPoint("BOTTOMRIGHT", 0, 15)
+	eaf.spellStack:SetPoint("BOTTOMRIGHT", 0, EA_Config.StackFontSize)
 	
 	local spellId = tonumber(index)	
 	local name = GetSpellInfo(spellId)
 	local icon = GetSpellTexture(spellId)
 	
 	if typeIndex == 1 then
-		if EA_SPELLINFO_SELF[spellId] == nil then EA_SPELLINFO_SELF[spellId] = {name,  icon, count, duration, expirationTime, unitCaster, isDebuff} end
+		if EA_SPELLINFO_SELF[spellId] == nil then 
+			EA_SPELLINFO_SELF[spellId] = {name,  icon, count, duration, expirationTime, unitCaster, isDebuff} 
+		end
+		
 		EA_SPELLINFO_SELF[spellId].name = name
 		
 		if (spellId == 48517) then          -- Druid / Eclipse (Solar): replace the Icon as Wrath (Rank 1)
@@ -234,12 +240,16 @@ function CreateFrames_CreateSpellFrame(index, typeIndex)
 		end
 		EA_SPELLINFO_SELF[spellId].icon = icon
 	elseif typeIndex == 2 then
-		if EA_SPELLINFO_TARGET[spellId] == nil then EA_SPELLINFO_TARGET[spellId] = {name,  icon, count, duration, expirationTime, unitCaster, isDebuff} end
-		EA_SPELLINFO_TARGET[spellId].name = name
+		if EA_SPELLINFO_TARGET[spellId] == nil then 
+			EA_SPELLINFO_TARGET[spellId] = {name,  icon, count, duration, expirationTime, unitCaster, isDebuff} 
+		end
 		
+		EA_SPELLINFO_TARGET[spellId].name = name		
 		EA_SPELLINFO_TARGET[spellId].icon = icon
 	elseif typeIndex == 3 then
-		if EA_SPELLINFO_SCD[spellId] == nil then EA_SPELLINFO_SCD[spellId] = {name, icon} end
+		if EA_SPELLINFO_SCD[spellId] == nil then 
+			EA_SPELLINFO_SCD[spellId] = {name, icon} 
+		end
 		
 		EA_SPELLINFO_SCD[spellId].name = name		
 		EA_SPELLINFO_SCD[spellId].icon = icon
@@ -276,6 +286,8 @@ if EA_flagAllHidden == true then
 			EventAlert_UpdateComboPoints()		
 		elseif (index == EA_SpecPower.Focus.frameindex[1]) then
 			EventAlert_UpdateFocus()		
+		elseif (index == EA_SpecPower.Vigor.frameindex[1]) then
+			G:UpdateVigor()
 		elseif (iPowerType == EA_SpecPower.Runes.powerId) then
 			
 			EventAlert_UpdateRunes()
@@ -317,66 +329,81 @@ if EA_flagAllHidden == true then
 	eaf:SetHeight(EA_Config.IconSize)	
 	
 	
+	local specIcon
+	
 	if index == EA_SpecPower.Rage.frameindex[1] then
 		-- 戰士/熊D怒氣的圖案
 		Lib_ZYF:SetBackdrop(eaf,{bgFile = "Interface/Icons/Ability_Warrior_Rampage"})		
 	
-	elseif index == EA_SpecPower.Mana.frameindex[1] then
-		-- 法力值的圖案
+	-- 法力值的圖案
+	elseif index == EA_SpecPower.Mana.frameindex[1] then		
 		Lib_ZYF:SetBackdrop(eaf,{bgFile = "interface/icons/spell_arcane_manatap"})
-	--elseif index == EA_SpecPower.Happiness.frameindex[1] then
-		-- 寵物快樂值的圖案
+		
+	-- 寵物快樂值的圖案
+	--elseif index == EA_SpecPower.Happiness.frameindex[1] then		
 		--Lib_ZYF:SetBackdrop(eaf,{bgFile = "	interface/petpaperdollframe/ui-pethappiness"})
-	elseif index == EA_SpecPower.Focus.frameindex[1] then
-		-- 獵人集中值的圖案
+		
+	-- 獵人集中值的圖案
+	elseif index == EA_SpecPower.Focus.frameindex[1] then		
 		Lib_ZYF:SetBackdrop(eaf,{bgFile = "Interface/Icons/Ability_Marksmanship"})
-	elseif index == EA_SpecPower.Focus.frameindex[2] then
-		-- 寵物集中值的圖案						
+		
+	-- 寵物集中值的圖案							
+	elseif index == EA_SpecPower.Focus.frameindex[2] then		
 		Lib_ZYF:SetBackdrop(eaf, {bgFile = "Interface/Icons/Ability_Marksmanship"})
 		--local specIcon = GetSpellTexture(982)
 		--eaf.texture:SetTexture(specIcon)
-	elseif index == EA_SpecPower.Energy.frameindex[1] then
-		-- 盜賊/貓D/武僧能量的圖案
+		
+	-- 盜賊/貓D/武僧能量的圖案
+	elseif index == EA_SpecPower.Energy.frameindex[1] then		
 		--eaf:SetBackdrop({bgFile = "Interface/Icons/Spell_Nature_Healingway"})
 		Lib_ZYF:SetBackdrop(eaf,{bgFile = "Interface/Icons/Trade_Engineering"})
-		
-	elseif index == EA_SpecPower.RunicPower.frameindex[1] then
-		-- 死亡騎士符文能量的圖案
+
+	-- 死亡騎士符文能量的圖案		
+	elseif index == EA_SpecPower.RunicPower.frameindex[1] then		
 		Lib_ZYF:SetBackdrop(eaf,{bgFile = "Interface/Icons/Spell_Arcane_Rune"})
-	elseif index == EA_SpecPower.Runes.frameindex[0] then
-		-- 死亡騎士符文的圖案
-		--Lib_ZYF:SetBackdrop(eaf,{bgFile=iconTextures[GetSpecialization()]})
-		--eaf.texture:SetTexture(runeTextures[GetSpecialization()])	
 		
-		eaf.texture:SetTexture(1630812)			
+	-- 死亡騎士符文的圖案
+	elseif index == EA_SpecPower.Runes.frameindex[0] then
+		
+		--Lib_ZYF:SetBackdrop(eaf,{bgFile=iconTextures[GetSpecialization()]})
+		--eaf.texture:SetTexture(runeTextures[GetSpecialization()])
+		
 		local coord
+		eaf.texture:SetTexture(1630812)			
 		if GetSpecialization then
 			coord = runeSetTexCoord[GetSpecialization()]								
 		else
 			coord = runeSetTexCoord[GetShapeshiftForm()]			
 		end		
-		eaf.texture:SetTexCoord(coord.minX, coord.maxX, coord.minY, coord.maxY)	
+		if coord then
+			eaf.texture:SetTexCoord(coord.minX, coord.maxX, coord.minY, coord.maxY)	
+		end 
 		
-	elseif index == EA_SpecPower.SoulShards.frameindex[1] then
-		-- 術士靈魂碎片的圖案
+	-- 術士靈魂碎片的圖案
+	elseif index == EA_SpecPower.SoulShards.frameindex[1] then		
 		Lib_ZYF:SetBackdrop(eaf,{bgFile = "Interface/Icons/Inv_Misc_Gem_Amethyst_02"})
-	elseif index == EA_SpecPower.LunarPower.frameindex[1] then
-		-- 鳥D星能的圖案
+		
+	-- 鳥D星能的圖案
+	elseif index == EA_SpecPower.LunarPower.frameindex[1] then		
 		--eaf:SetBackdrop({bgFile = "Interface/Icons/Ability_Druid_Eclipse"})
 		--local specIcon = select(3,GetSpellInfo(77492))
-		local specIcon = GetSpellTexture(197524)
+		specIcon = GetSpellTexture(197524)
 		eaf.texture:SetTexture(specIcon)	
-	elseif index == EA_SpecPower.HolyPower.frameindex[1] then
-		-- 聖騎士的聖能圖案
+		
+	-- 聖騎士的聖能圖案		
+	elseif index == EA_SpecPower.HolyPower.frameindex[1] then		
 		Lib_ZYF:SetBackdrop(eaf,{bgFile = "Interface/Icons/Spell_Holy_PowerwordBarrier"})
-	elseif index == EA_SpecPower.Chi.frameindex[1] then
-		-- 武僧真氣的圖案
+		
+	-- 武僧真氣的圖案
+	elseif index == EA_SpecPower.Chi.frameindex[1] then		
 		Lib_ZYF:SetBackdrop(eaf,{bgFile = "Interface/Icons/Ability_Monk_HealthSphere"})
+
+	-- 暗牧瘋狂值的圖案
 	elseif index == EA_SpecPower.Insanity.frameindex[1] then
-		-- 暗牧瘋狂值的圖案
+		
 		--eaf:SetBackdrop({bgFile = "Interface/Icons/Spell_Priest_Insanity"})			
 		--local specIcon = select(3,GetSpellInfo(77486))
-		local specIcon = 1386550
+		specIcon = 1386550
 		eaf.texture:SetTexture(specIcon)
 	--elseif index == EA_SpecPower.BurningEmbers.frameindex[1] then
 		-- 術士燃火餘燼的圖案
@@ -384,32 +411,48 @@ if EA_flagAllHidden == true then
 	--elseif index == EA_SpecPower.DemonicFury.frameindex[1] then
 		-- 術士惡魔之怒的圖案
 		--Lib_ZYF:SetBackdrop(eaf,{bgFile = "Interface/Icons/Spell_Fire_FelFlameRing"})
-	elseif index == EA_SpecPower.LifeBloom.frameindex[1] then
-		-- 補D生命之花的圖案
+		
+	-- 補D生命之花的圖案
+	elseif index == EA_SpecPower.LifeBloom.frameindex[1] then		
 		Lib_ZYF:SetBackdrop(eaf,{bgFile = "Interface/Icons/INV_Misc_Herb_FelBlossom"})
-	elseif index == EA_SpecPower.ComboPoints.frameindex[1] then
-		-- 盜賊/貓D連擊點的圖案
+		
+	-- 盜賊/貓D連擊點的圖案
+	elseif index == EA_SpecPower.ComboPoints.frameindex[1] then		
 		Lib_ZYF:SetBackdrop(eaf,{bgFile = "Interface/Icons/Ability_WhirlWind"})
-	elseif index == EA_SpecPower.ArcaneCharges.frameindex[1] then		
-		-- 秘法充能圖案
+		
+	-- 秘法充能圖案
+	elseif index == EA_SpecPower.ArcaneCharges.frameindex[1] then				
 		--eaf:SetBackdrop({bgFile = "Interface/Icons/Arcane_Charges"})			
-		local specIcon = GetSpellTexture(36032)
+		specIcon = GetSpellTexture(36032)
 		eaf.texture:SetTexture(specIcon)
-	elseif index == EA_SpecPower.Maelstrom.frameindex[1] then		
-		-- 薩滿元能圖案		
-		local specIcon = GetSpellTexture(556)
+		
+	-- 薩滿元能圖案	
+	elseif index == EA_SpecPower.Maelstrom.frameindex[1] then				
+		-- specIcon = GetSpellTexture(556)
 		specIcon = 136010
 		eaf.texture:SetTexture(specIcon)
-	elseif index == EA_SpecPower.Fury.frameindex[1] then		
-		-- 惡魔獵人魔怒圖案
-		local specIcon
+		
+	-- 惡魔獵人魔怒圖案	
+	elseif index == EA_SpecPower.Fury.frameindex[1] then						
 		specIcon = 1305156
 		eaf.texture:SetTexture(specIcon)
-	elseif index == EA_SpecPower.Pain.frameindex[1] then		
-		-- 惡魔獵人魔痛圖案
 		
-		local specIcon = GetSpellTexture(203747)
-		eaf.texture:SetTexture(specIcon)
+	-- 惡魔獵人魔痛圖案	
+	elseif index == EA_SpecPower.Pain.frameindex[1] then				
+		specIcon = GetSpellTexture(203747)
+		eaf.texture:SetTexture(specIcon)	
+	
+	-- 喚能師龍能圖案(Essence Icon)
+	elseif index == EA_SpecPower.Essence.frameindex[1] then				
+		specIcon = GetSpellTexture(375722)
+		eaf.texture:SetTexture(specIcon)	
+	
+	-- 活力圖案(Vigor Icon)
+	elseif index == EA_SpecPower.Vigor.frameindex[1] then	
+		
+		specIcon = 4640499
+		eaf.texture:SetTexture(specIcon)	
+		-- Lib_ZYF:SetBackdrop(eaf, {bgFile = "Interface/Icons/dragonriding_vigor"})		
 	end
 	
 end
@@ -531,7 +574,7 @@ function CreateFrames_CreateSpellListChkbox(SpellID, FrameNamePrefix, ParentFram
 
 	local SpellChkbox = _G[FrameNamePrefix..SpellID]
 	if (SpellChkbox == nil) then
-		SpellChkbox = CreateFrame("CheckButton", FrameNamePrefix..SpellID, ParentFrameObj, "OptionsCheckButtonTemplate")
+		SpellChkbox = CreateFrame("CheckButton", FrameNamePrefix..SpellID, ParentFrameObj, "UICheckButtonTemplate")
 	end
 	SpellChkbox:SetPoint("TOPLEFT", LocOffsetX + 25, LocOffsetY)
 	SpellChkbox:SetChecked(fValue)
@@ -1122,6 +1165,7 @@ local GC_PowerType={
 		[16]="ARCANE_CHARGES", 
 		[17]="FURY",
 		[18]="PAIN",
+		[19]="ESSENCE",            f
 		}
 function CreateFrames_CreateGroupCheckFrame(iGroupIndex)
 	
@@ -1484,7 +1528,8 @@ function CreateFrames_CreateMinimapOptionFrame()
 								t = t..EA_XCMD_CMDHELP["TITLE"].."\n"
 								t = t..EA_XCMD_CMDHELP["OPT"].."\n"
 								t = t..EA_XCMD_CMDHELP["HELP"].."\n"
-							
+								
+								local k,v
 								for k,v in pairs(EA_XCMD_CMDHELP) do
 									if v[1] then t = t..v[1].."\n"..v[2].."\n" end									
 								end
@@ -1539,9 +1584,19 @@ function CreateFrames_CreateMinimapOptionFrame()
 								t = t.." - Show DK's Runes Cooldown Bar\n"
 								
 								t = t.."\124cff00FF00"
-								t = t.."/eam BaseFontSize n"
+								t = t.."/eam SnameFontSize n"
 								t = t.."\124r"
-								t = t.." - Set BASE font size for adjust and show TIMER,STACK and NAME\n"
+								t = t.." - Set SpellName font size for adjust and show TIMER,STACK and NAME\n"
+								
+								t = t.."\124cff00FF00"
+								t = t.."/eam TimerFontSize n"
+								t = t.."\124r"
+								t = t.." - Set Timer font size for adjust and show TIMER,STACK and NAME\n"
+								
+								t = t.."\124cff00FF00"
+								t = t.."/eam StackFontSize n"
+								t = t.."\124r"
+								t = t.." - Set Stack font size for adjust and show TIMER,STACK and NAME\n"
 								
 								t = t.."\124cff00FF00"
 								t = t.."/eam Play"
