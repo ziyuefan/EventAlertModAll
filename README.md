@@ -395,7 +395,7 @@ SCD_NocombatStillKeep= true,
 
 *以改變法術名稱大小(不分大小寫,亦可以/eam nfs nSize代替)*
 
-# [ChangLog](https://github.com/ziyuefan/EventAlertModAll/blob/main/EventAlertMod/changelog.txt "ChangLog")
+# [ChangLog](https://github.com/ziyuefan/EventAlertModAll/blob/main/README.md#changlog "ChangLog")
 
 ## Screenshot
 
