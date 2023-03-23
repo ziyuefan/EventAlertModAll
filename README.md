@@ -1,5 +1,5 @@
-# [ChangLog](https://github.com/ziyuefan/EventAlertModAll/blob/main/EventAlertMod/changelog.txt "ChangLog")
-# [CommandLine](https://github.com/ziyuefan/EventAlertModAll/edit/main/README.md#command-line "CommandLine")
+# [ChangLog](https://github.com/ziyuefan/EventAlertModAll/blob/main/README.md#changlog "ChangLog")
+# [CommandLine](https://github.com/ziyuefan/EventAlertModAll/blob/main/README.md#command-line "CommandLine")
 # [ScreenShot](https://github.com/ziyuefan/EventAlertModAll/blob/main/README.md#screenshot-2 "ScreenShot")
 
 ---
@@ -346,7 +346,7 @@ SCD_NocombatStillKeep= true,
 - 小數點變數變更為UseFloatSec, 表示低於此秒數才會使用小數點一位顯示若0 則表示完全不會顯示
 - 鳥D 日月能移除，只剩下星能。
 
-# [ChangLog](https://github.com/ziyuefan/EventAlertModAll/blob/main/EventAlertMod/changelog.txt "ChangLog")
+# [ChangLog](https://github.com/ziyuefan/EventAlertModAll/blob/main/README.md#changlog "ChangLog")
 # [ScreenShot](https://github.com/ziyuefan/EventAlertModAll/blob/main/README.md#screenshot-2 "ScreenShot")
 
 ## Command Line
@@ -411,6 +411,6 @@ SCD_NocombatStillKeep= true,
 ![EAM Minimap](https://truth.bahamut.com.tw/s01/202008/154db1c0ef239cd20035d3b91c2a140f.JPG)
 ![EAM Minimap Hint](https://truth.bahamut.com.tw/s01/202008/f1ee8bd0327ecd95f6d2ffea2f06d7ae.JPG)
 
-# [ChangLog](https://github.com/ziyuefan/EventAlertModAll/blob/main/EventAlertMod/changelog.txt "ChangLog")
-# [CommandLine](https://github.com/ziyuefan/EventAlertModAll/edit/main/README.md#command-line "CommandLine")
+# [ChangLog](https://github.com/ziyuefan/EventAlertModAll/blob/main/README.md#changlog "ChangLog")
+# [CommandLine](https://github.com/ziyuefan/EventAlertModAll/blob/main/README.md#command-line "CommandLine")
 # [ScreenShot](https://github.com/ziyuefan/EventAlertModAll/blob/main/README.md#screenshot-2 "ScreenShot")
