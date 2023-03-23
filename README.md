@@ -1,6 +1,5 @@
 
 **[ChangLog](https://github.com/ziyuefan/EventAlertModAll/blob/main/EventAlertMod/changelog.txt "ChangLog")**
-
 ---
 ## [Retail  DF    ]2023.03.23
 ## [Classic WOTLKC]2023.03.23
@@ -182,9 +181,9 @@ LibStub("LibCustomGlow-1.0").ButtonGlow_Stop(eaf)
 - 加強非光環式持續效果正確性
 ---
 ## [BFA] 2018.08.29
-- 支援無光環之技能持續秒數,請在本職業提示模組輸入"技能法術ID",程式會自動抓取技能提示內的持續時間,若抓取不到,請查閱修改localization.tw.lua內的EA_XCMD_SPELL_DURATION_PATTERN1,EA_XCMD_SPELL_DURATION_PATTERN2的正則表達式
+- 支援無光環之技能持續秒數,請在本職業提示模組輸入"技能法術ID",
+程式會自動抓取技能提示內的持續時間,若抓取不到,請查閱修改localization.tw.lua內的EA_XCMD_SPELL_DURATION_PATTERN1,EA_XCMD_SPELL_DURATION_PATTERN2的正則表達式
 例如暴風雪(190356),鏡像(55342),冰霜之球(84714),力之符文(116011)等等
-
 P.S. 116011是符文持續時間,116014是在符文有效範圍內才會出現的BUFF
 ---
 ## [BFA] 2018.08.25
@@ -372,7 +371,9 @@ SCD_NocombatStillKeep= true,
 *以改變法術名稱大小(不分大小寫,亦可以/eam nfs nSize代替)*
 
 ---
+
 [Sreenshot]
+
 ![EAM Main](https://truth.bahamut.com.tw/s01/202008/1982fcd16ac80aaddfeb299f57a71e94.JPG)
 
 ![EAM Options](https://truth.bahamut.com.tw/s01/202008/cc3c05665af5fe7e3dae3dd5caa5acb5.JPG)
