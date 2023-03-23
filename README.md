@@ -334,10 +334,9 @@ SCD_NocombatStillKeep= true,
 - 暗牧瘋狂值達到上限會高亮
 - 小數點變數變更為UseFloatSec, 表示低於此秒數才會使用小數點一位顯示若0 則表示完全不會顯示
 - 鳥D 日月能移除，只剩下星能。
-
-[========]
-
-## 以下指令說明不分大小寫:
+---
+[Command line]
+# 以下指令說明不分大小寫:
 
 **/eam SCDRemoveWhenCooldown**
 *開關型指令,技能冷卻圖示在冷卻完成後移除(true表示要移除;false表示不移除)*
@@ -372,9 +371,8 @@ SCD_NocombatStillKeep= true,
 **/eam SNameFontSize nSize**
 *以改變法術名稱大小(不分大小寫,亦可以/eam nfs nSize代替)*
 
-
-[========]
-
+---
+[Sreenshot]
 ![EAM Main](https://truth.bahamut.com.tw/s01/202008/1982fcd16ac80aaddfeb299f57a71e94.JPG)
 
 ![EAM Options](https://truth.bahamut.com.tw/s01/202008/cc3c05665af5fe7e3dae3dd5caa5acb5.JPG)
