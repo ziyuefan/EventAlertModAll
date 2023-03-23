@@ -1,6 +1,6 @@
 # [ChangLog](https://github.com/ziyuefan/EventAlertModAll/blob/main/EventAlertMod/changelog.txt "ChangLog")
 # [CommandLine](https://github.com/ziyuefan/EventAlertModAll/edit/main/README.md#command-line "CommandLine")
-# [ScreenShot](https://github.com/ziyuefan/EventAlertModAll/edit/main/README.md#command-line "ScreenShot")
+# [ScreenShot]https://github.com/ziyuefan/EventAlertModAll/edit/main/README.md#screenshot-1 "ScreenShot")
 
 ---
 #### [Retail  DF    ]2023.03.23
