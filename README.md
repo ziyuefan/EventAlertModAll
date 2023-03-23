@@ -1,5 +1,6 @@
 
 **[ChangLog](https://github.com/ziyuefan/EventAlertModAll/blob/main/EventAlertMod/changelog.txt "ChangLog")**
+
 ---
 ## [Retail  DF    ]2023.03.23
 ## [Classic WOTLKC]2023.03.23
@@ -90,7 +91,8 @@
 ## [SL] 2020.11.17
 - 變更法術細部設定背景透明度,使其不與其他框架干擾
 - 修正法術細部設定法術文字綠色背景問題
-- 修正:啟用ESC關閉提示功能時,ESC無法關閉框架問題,另技能提醒的部份仍不受ESC關閉,且ESC將成為顯示開關,按一次關、按一次開, 並可戰鬥中開關
+- 修正:啟用ESC關閉提示功能時,ESC無法關閉框架問題,另技能提醒的部份仍不受ESC關閉,
+且ESC將成為顯示開關,按一次關、按一次開, 並可戰鬥中開關
 ---
 ## [SL] 2020.11.03
 - 修正DK符文報錯
@@ -98,8 +100,10 @@
 ## [SL] 2020.11.01
 - 變更DK符文圖案,使其符合版本
 - 符文數量會顯示專精,例如:穢邪符文、冰霜符文、血魄符文
-- 字型基礎大小值改為自訂, 不再跟隨圖示大小縮放可輸入 /eam BaseFontSize nSize 自訂大小而計時、堆疊、名稱將以這個基礎值做框外或框內等比例縮放有興趣者可以到EventAlert_IconOptions.lua 找函數
-EventAlert_Icon_Options_Frame_AdjustTimerFontSize自行修改,首次執行預設值為26
+- 字型基礎大小值改為自訂, 不再跟隨圖示大小縮放可輸入 /eam BaseFontSize nSize 
+自訂大小而計時、堆疊、名稱將以這個基礎值做框外或框內等比例縮放有興趣者可以到
+EventAlert_IconOptions.lua 找函數EventAlert_Icon_Options_Frame_AdjustTimerFontSize
+自行修改,首次執行預設值為26
 - 斬殺動畫...調整, 並且可以/eam play 播放
 - 新增及增加Minimap齒輪的滑鼠提示輔助說明
 ---
@@ -165,26 +169,30 @@ LibStub("LibCustomGlow-1.0").ButtonGlow_Stop(eaf)
 ## [BFA] 2018.10.12
 - 修復:自身與目標debuff 不顯示紅色與綠色的問題
 - 修復:技能冷卻模組圖示閃爍問題
-- 優化:建立物品法術對應快取表不再嚴重卡頓(但仍然有一點小卡)並會提示建立快取進度,建議耐心等待快取建立完成.(為了避免嚴重卡頓而分攤到250秒內完成,所以會比之前等待時間更久)
+- 優化:建立物品法術對應快取表不再嚴重卡頓(但仍然有一點小卡)並會提示建立快取進度,
+建議耐心等待快取建立完成.(為了避免嚴重卡頓而分攤到250秒內完成,所以會比之前等待時間更久)
 - 技能冷卻增加剩餘秒數紅字提示之設定(請於齒輪內設定)
 - 剩餘秒數紅字提示放大10%大小依(依框內或框外之倒數數字放大)
 - 非光環式技能持續時間增加了一個比對正則式, 讓烏鴉獵殺可以被判定到
 ---
 ## [BFA] 2018.10.02
 - 修復非光環式技能會顯示到自身以外玩家的問題
-- 修復堆疊數字閃爍問題(可在EventAlert_IconOption.lua內找到EventAlert_Icon_Options_Frame_AdjustTimerFontSize來修改比例)
+- 修復堆疊數字閃爍問題(可在EventAlert_IconOption.lua內找到
+EventAlert_Icon_Options_Frame_AdjustTimerFontSize來修改比例)
 ---
 ## [BFA] 2018.09.29
-- PositionFrame(), TarPositionFrame(0, ScdPositionFrame()不再一有事件就更新,改以每0.1秒定時更新圖示,以求大幅降低cpu使用率, 從而避免團戰時大量事件引起的LAG
+- PositionFrame(), TarPositionFrame(0, ScdPositionFrame()不再一有事件就更新,
+改以每0.1秒定時更新圖示,以求大幅降低cpu使用率, 從而避免團戰時大量事件引起的LAG
 ---
 ## [BFA] 2018.09.03
 - 加強非光環式持續效果正確性
 ---
 ## [BFA] 2018.08.29
-- 支援無光環之技能持續秒數,請在本職業提示模組輸入"技能法術ID",
-程式會自動抓取技能提示內的持續時間,若抓取不到,請查閱修改localization.tw.lua內的EA_XCMD_SPELL_DURATION_PATTERN1,EA_XCMD_SPELL_DURATION_PATTERN2的正則表達式
-例如暴風雪(190356),鏡像(55342),冰霜之球(84714),力之符文(116011)等等
-P.S. 116011是符文持續時間,116014是在符文有效範圍內才會出現的BUFF
+- 支援無光環之技能持續秒數,請在本職業提示模組輸入"技能法術ID",程式會自動抓取技能提示內的持續時間,
+若抓取不到,請查閱修改localization.tw.lua內的EA_XCMD_SPELL_DURATION_PATTERN1,
+EA_XCMD_SPELL_DURATION_PATTERN2的正則表達式例如暴風雪(190356),鏡像(55342),
+冰霜之球(84714),力之符文(116011)等等
+P.S.116011是符文持續時間,116014是在符文有效範圍內才會出現的BUFF
 ---
 ## [BFA] 2018.08.25
 - 新增指令 /eam NewLineByIconCount (2~n)
@@ -222,7 +230,10 @@ P.S. 116011是符文持續時間,116014是在符文有效範圍內才會出現�
 ---
 ## [LEG] 2017.06.21
 - 針對taint 問題調用 UIDropDownMenu修正用函式庫及新版的 LibButtonGlow1.0 函式庫來降低taint的產生
-- 技能冷卻增加了物品冷卻，但是不可以輸入物品ID(Item ID),只能輸入施放的法術ID萊建立，可使用/eam showc 來查詢，然而物品的CD若是"使用型"則可以透過GetSpellBaseCooldown(法術ID)來查詢,程式會自動判別,但若是特定條件觸發且有內置CD的則需要玩家手動輸入固定值，目前用比較不方便的作法就是在法術ID的輸入格式後面以分號(;)隔開輸入冷卻秒數。例如
+- 技能冷卻增加了物品冷卻，但是不可以輸入物品ID(Item ID),只能輸入施放的法術ID萊建立，
+可使用/eam showc 來查詢，然而物品的CD若是"使用型"則可以透過GetSpellBaseCooldown(法術ID)來查詢
+,程式會自動判別,但若是特定條件觸發且有內置CD的則需要玩家手動輸入固定值，目前用比較不方便的作法就
+是在法術ID的輸入格式後面以分號(;)隔開輸入冷卻秒數。例如:
 賽弗斯的祕密就輸入208052;30
 吸收盾項鍊 207452;30
 輸入後若無法馬上作用請/rl或/reload 重載UI
@@ -232,6 +243,7 @@ P.S. 116011是符文持續時間,116014是在符文有效範圍內才會出現�
 ---
 ## [LEG] 2017.06.19
 - 修復冷卻模塊排序前置作業存取到空的表格產生的nil 存取錯誤
+---
 ## [LEG] 2017.06.16
 - 技能冷卻模塊現在可以設定比重排序了(其他4項暫時無效果，建議不要設定)
 - 條件式群組技能將連擊點由"連擊點異動類"移到"對象能量異動類"
@@ -252,14 +264,15 @@ P.S. 116011是符文持續時間,116014是在符文有效範圍內才會出現�
 - 獵人寵物集中值改到圖形介面內做勾選式開關，並移除HUNTER_ShowPetFocus變數
 - 修復即使勾選僅顯示玩家施放之選項仍會顯示他人增減益的錯誤(self變數未正確儲存)   (有問題的BUFF/DEBUFF ID 必須刪除重建)
 - 顯示value,value,value3 的功能以一個下限值EA_Config.ShowAuraValueWhenOver來決定是否顯示。目前預設下限值為1000
-- [未完成]:自身/目標的BUFF/DEBUFF倒數N秒高亮提示
-- [未完成]:嘗試將特殊資源與自身BUFF分開
-- [未完成]:ENERGY框架脫戰後消失
+- *[未完成]*:自身/目標的BUFF/DEBUFF倒數N秒高亮提示
+- *[未完成]*:嘗試將特殊資源與自身BUFF分開
+- *[未完成]*:ENERGY框架脫戰後消失
 ---
 ## [LEG] 2016.08.22
 - 設置圖標可用 /eam minimap 切換啟用/關閉
 - 設置圖標可用右鍵移動(拖曳後之新位置將被暴雪自動存到各角色下的layout-local.txt，上線時將自動還原到最後位置)
-- 新增: 輸入 /eam scdremovewhencooldown 直接切換EA_Config2.SCD_RemoveWhenCooldown變數來控制冷卻框架行為(true表示單一技能冷卻完成即消失,false表示即使完成也不消失)
+- 新增: 輸入 /eam scdremovewhencooldown 直接切換EA_Config2.SCD_RemoveWhenCooldown變數來控制冷卻框架行為
+(true表示單一技能冷卻完成即消失,false表示即使完成也不消失)
 (不會存檔，下次登入時仍會按照Addons\EventAlertMod\EventAlertMod.lua內的設置)
 - 新增: 輸入 /eam scdnocombatstillkeep 直接切換EA_Config2.SCD_NocombatStillKeep變數來控制冷卻框架行為(true表示脫離戰鬥仍然保持框架，false表示脫離戰鬥冷卻框架消失)   (不會存檔，下次登入時仍會按照Addons\EventAlertMod\EventAlertMod.lua內的設置)
 - 計時器若在框體外(0.65倍框體大小)，則堆疊數字調大(0.45倍框體大小);計時器若在框體內(0.5倍框體大小)，堆疊數字大小調小(0.3倍框體大小)
@@ -299,10 +312,8 @@ P.S. 116011是符文持續時間,116014是在符文有效範圍內才會出現�
 ## [LEG] 2016.07.27
 - 群組條件技能提示可以正常顯示指定圖案了，並加入新的特殊能量支援
 - 新增法術時，預設僅顯示為玩家本人施放的BUFF/DEBUFF(點法術後的齒輪可以可見此選項)
-
 - 修正當啟用倒數N秒後顯示小數時會讓特殊能量也出現小數點的問題(以timeLeft~=floor(timeLeft)來錯開)
 - 修正EA_Config2.IsKeepGlowSCD 無法作用的問題
-
 - 增加鼠標提示。
 並以EA_Config2.ICON_APPEND_SPELL_TIP 變數作為開關
 - 初始預設值為關閉所有職業特殊能量
@@ -333,65 +344,65 @@ SCD_NocombatStillKeep= true,
 - 暗牧瘋狂值達到上限會高亮
 - 小數點變數變更為UseFloatSec, 表示低於此秒數才會使用小數點一位顯示若0 則表示完全不會顯示
 - 鳥D 日月能移除，只剩下星能。
----
-[Command line]
-# 以下指令說明不分大小寫:
+
+[CommandLine]
+*Command Line*
+
+## 以下指令說明不分大小寫:
 
 **/eam SCDRemoveWhenCooldown**
+
 *開關型指令,技能冷卻圖示在冷卻完成後移除(true表示要移除;false表示不移除)*
 
 **/eam SCDNocombatStillKeep**
+
 *開關型指令,技能冷卻圖示在脫離戰鬥後是否仍顯示(true保持顯示;false 脫戰不顯示)*
 
 **/eam SCDGlowWhenUsable**
+
 *開關型指令,技能冷卻是否在可用時高亮(true表示可用時高亮false則否)
-這指令特別說明其使用IsUsableSpell()判斷,
-也就是如果該指令因為資源或有減益導致無法施放或者無法滿足其技能條件,則不會高亮
-但是距離不在此限*
+這指令特別說明其使用IsUsableSpell()判斷,也就是如果該指令因為資源或
+有減益導致無法施放或者無法滿足其技能條件,則不會高亮但是距離不在此限*
 
 **/eam MiniMap [reset]**
+
 *開關型指令,用來顯示設定齒輪顯示與否,加上 reset 強制定位定位到小地圖左下角*
 
 **/eam UpdateInterval  n**
+
 *設定更新頻率,越小越快,若有團戰無法負荷情況請加大此數值,預設 0.1S (0.1 ~ 1秒)*
 
 **/eam IconAppenSpellTip**
+
 *開關形指令, 圖示是否在滑鼠移過時顯示法術說明*
 
 **/eam ShowRunesBar**
+
 *開關型指令,用來決定是否顯示死騎符文列(2020/10/18新增)*
 
 **/eam StackFontSize nSize**
+
 *指令以改變堆疊層數大小(不分大小寫,亦可以/eam sfs nSize代替)*
 
 **/eam TimerFontSize nSize**
+
 *以改變計時數字大小(不分大小寫,亦可以/eam tfs nSize代替)*
 
 **/eam SNameFontSize nSize**
+
 *以改變法術名稱大小(不分大小寫,亦可以/eam nfs nSize代替)*
 
----
-
-[Sreenshot]
+[SceenShot]
+*Screenshot*
 
 ![EAM Main](https://truth.bahamut.com.tw/s01/202008/1982fcd16ac80aaddfeb299f57a71e94.JPG)
-
 ![EAM Options](https://truth.bahamut.com.tw/s01/202008/cc3c05665af5fe7e3dae3dd5caa5acb5.JPG)
-
 ![EAM Self](https://truth.bahamut.com.tw/s01/202008/226588adaa20b9640c7cc00e8d8b6561.JPG)
-
 ![EAM Target](https://truth.bahamut.com.tw/s01/202008/0b6c52fcdf6fa73ac1d84c5a0198557f.JPG)
-
 ![EAM Other](https://truth.bahamut.com.tw/s01/202008/83af52716595ce311f7142f6085a1945.JPG)
-
 ![EAM Detail Option](https://truth.bahamut.com.tw/s01/202008/21cfb5148289c4480beca22cbf5e3c4a.JPG)
-
 ![EAM SCD](https://truth.bahamut.com.tw/s01/202008/1dd0d978d4daa6d4b5aab7b6308671d8.JPG)
-
 ![EAM Group](https://truth.bahamut.com.tw/s01/202008/198e63977a8ace11423675524c90f1d3.JPG)
-
 ![EAM Group Detail](https://truth.bahamut.com.tw/s01/202008/07c24ff7bc0d14fe9381b96f50905f52.JPG)
-
 ![EAM Minimap](https://truth.bahamut.com.tw/s01/202008/154db1c0ef239cd20035d3b91c2a140f.JPG)
-
 ![EAM Minimap Hint](https://truth.bahamut.com.tw/s01/202008/f1ee8bd0327ecd95f6d2ffea2f06d7ae.JPG)
