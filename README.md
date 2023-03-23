@@ -376,13 +376,13 @@ P.S.116011是符文持續時間,116014是在符文有效範圍內才會出現的
 - "圖示位置選項"按鈕更名為:"圖示位置&職業特殊能量"(簡體:"图示位置&副资源")
 以便於讓大家知道要去哪邊啟用關閉這些特殊POWER。
 - EA_Config2變數更名:  
-脫離戰鬥後是否保持技能冷卻框架SCD_NocombatStillKeep= true,
-當冷卻框架之技能達到可施放條件時高亮SCD_GlowWhenUsable	= true ,
-單一技能冷卻完成即移除(true:要移除/false:不移除)SCD_RemoveWhenCooldown= true,
-剩餘多少秒開始使用小數點一位顯示(使用0則完全不會有小數點)UseFloatSec= 1,
-是否顯示死騎符文(true:顯示/false:不顯示)DK_ShowRunes = false,
-是否顯示獵人寵物集中值HUNTER_ShowPetFocus= true,
-獵人寵物集中值高亮條件值(0表示不高亮)HUNTER_GlowPetFocus 	= 50,
+脫離戰鬥後是否保持技能冷卻框架SCD_NocombatStillKeep= true,  
+當冷卻框架之技能達到可施放條件時高亮SCD_GlowWhenUsable	= true ,  
+單一技能冷卻完成即移除(true:要移除/false:不移除)SCD_RemoveWhenCooldown= true,  
+剩餘多少秒開始使用小數點一位顯示(使用0則完全不會有小數點)UseFloatSec= 1,  
+是否顯示死騎符文(true:顯示/false:不顯示)DK_ShowRunes = false,  
+是否顯示獵人寵物集中值HUNTER_ShowPetFocus= true,  
+獵人寵物集中值高亮條件值(0表示不高亮)HUNTER_GlowPetFocus 	= 50,  
 
 ---
 #### [LEG] 2016.07.26
@@ -469,3 +469,4 @@ P.S.116011是符文持續時間,116014是在符文有效範圍內才會出現的
 # [ChangLog](https://github.com/ziyuefan/EventAlertModAll/blob/main/README.md#changlog "ChangLog")
 # [CommandLine](https://github.com/ziyuefan/EventAlertModAll/blob/main/README.md#command-line "CommandLine")
 # [ScreenShot](https://github.com/ziyuefan/EventAlertModAll/blob/main/README.md#screenshot-2 "ScreenShot")
+- - 
