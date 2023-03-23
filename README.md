@@ -1,6 +1,6 @@
 # [ChangLog](https://github.com/ziyuefan/EventAlertModAll/blob/main/EventAlertMod/changelog.txt "ChangLog")
 # [CommandLine](https://github.com/ziyuefan/EventAlertModAll/edit/main/README.md#command-line "CommandLine")
-# [ScreenShot](https://github.com/ziyuefan/EventAlertModAll/edit/main/README.md#screenshot-1 "ScreenShot")
+# [ScreenShot](https://github.com/ziyuefan/EventAlertModAll/edit/main/README.md#screenshot "ScreenShot")
 
 ---
 #### [Retail  DF    ]2023.03.23
@@ -347,7 +347,7 @@ SCD_NocombatStillKeep= true,
 - 鳥D 日月能移除，只剩下星能。
 
 # [ChangLog](https://github.com/ziyuefan/EventAlertModAll/blob/main/EventAlertMod/changelog.txt "ChangLog")
-# [ScreenShot](https://github.com/ziyuefan/EventAlertModAll/edit/main/README.md#screenshot-1 "ScreenShot")
+# [ScreenShot](https://github.com/ziyuefan/EventAlertModAll/blob/main/README.md#screenshot "ScreenShot")
 
 ## Command Line
 
@@ -412,5 +412,5 @@ SCD_NocombatStillKeep= true,
 ![EAM Minimap Hint](https://truth.bahamut.com.tw/s01/202008/f1ee8bd0327ecd95f6d2ffea2f06d7ae.JPG)
 
 # [ChangLog](https://github.com/ziyuefan/EventAlertModAll/blob/main/EventAlertMod/changelog.txt "ChangLog")
-# [CommandLine](https://github.com/ziyuefan/EventAlertModAll/edit/main/README.md#command-line "CommandLine")
-# [ScreenShot](https://github.com/ziyuefan/EventAlertModAll/edit/main/README.md#screenshot-1 "ScreenShot")
+# [CommandLine](https://github.com/ziyuefan/EventAlertModAll/blob/main/README.md#command-line "CommandLine")
+# [ScreenShot](https://github.com/ziyuefan/EventAlertModAll/blob/main/README.md#screenshot-1 "ScreenShot")
